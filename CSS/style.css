@@ -461,79 +461,198 @@ h2::after {
     padding-bottom: 2px; /* Efeito de clique */
 }
 
-/* --- Footer --- */
+/* --- Footer Premium (2 Colunas) --- */
 footer {
     background-color: var(--secondary-color);
-    color: var(--white);
-    padding: 60px 0 30px;
-    text-align: center;
+    color: #e0e0e0;
+    padding-top: 80px;
+    font-size: 1rem;
+    margin-top: auto; /* Garante que fique no fundo */
 }
 
-.footer-logo {
+.footer-grid {
+    display: grid;
+    /* Divide em duas colunas iguais */
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    align-items: start; /* Alinha o conteúdo no topo */
+}
+
+/* --- Coluna da Esquerda (Marca) --- */
+.brand-col {
+    text-align: left;
+}
+
+.footer-logo-text {
     font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.social-icons {
-    margin-bottom: 25px;
-}
-
-.social-icons a {
     color: var(--white);
-    font-size: 1.2rem;
-    margin: 0 10px;
-    display: inline-block;
-    background: rgba(255,255,255,0.1);
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    border-radius: 50%;
-    transition: 0.3s;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.brand-mission {
+    opacity: 0.8;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    max-width: 350px; /* Impede que o texto fique muito comprido */
+}
+
+/* Ícones sociais específicos do footer */
+.social-icons-footer a {
+    color: var(--secondary-color);
+    background: var(--white);
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
     text-align: center;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: 0.3s;
 }
 
-.social-icons a:hover {
+.social-icons-footer a:hover {
     background: var(--primary-color);
-    transform: scale(1.1);
+    color: var(--white);
+    transform: translateY(-3px);
 }
 
-.footer-info p {
+/* --- Coluna da Direita (Contato) --- */
+.contact-col {
+    text-align: right; /* Alinha tudo à direita no Desktop (Fica chique) */
+}
+
+.contact-col h4 {
+    color: var(--primary-color); /* Destaque em Teal */
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-info p {
     margin-bottom: 10px;
+    color: rgba(255,255,255,0.9);
 }
 
-.copyright {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 0.8rem;
+.contact-info a {
+    color: var(--white);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 2px;
+}
+
+.contact-info a:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.contact-info .address {
+    margin-top: 20px;
+    font-size: 0.9rem;
     opacity: 0.7;
 }
 
-/* --- Responsividade --- */
+/* --- Barra Inferior --- */
+.footer-bottom {
+    background-color: #083d38;
+    padding: 20px 0;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+}
+
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.legal-links a {
+    color: rgba(255,255,255,0.5);
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.legal-links a:hover {
+    color: var(--white);
+}
+
+/* --- Responsividade (IMPORTANTE) --- */
 @media (max-width: 768px) {
-    .nav-links {
-        display: none; /* Menu simples mobile (escondido) */
-    }
-    
-    .menu-toggle {
-        display: block; /* Mostra ícone hamburger */
+    .footer-grid {
+        grid-template-columns: 1fr; /* Vira 1 coluna no celular */
+        text-align: center; /* Centraliza tudo */
+        gap: 40px;
     }
 
-    .hero-content h1 {
-        font-size: 2.5rem;
+    .brand-col, .contact-col {
+        text-align: center; /* Força centralização no mobile */
     }
-    
-    .hero-subtitle {
-        font-size: 1rem;
+
+    .brand-mission {
+        margin: 0 auto 25px auto; /* Centraliza o bloco de texto */
     }
-    
-    .about-content {
+
+    .bottom-container {
         flex-direction: column;
+        gap: 15px;
     }
     
-    .about-img {
-        width: 100%;
+    .legal-links a {
+        margin: 0 10px;
+    }
+}
+
+/* --- Responsividade & Menu Mobile --- */
+@media (max-width: 768px) {
+    /* 1. Ajustes Gerais */
+    .hero-content h1 { font-size: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr; text-align: center; }
+    .brand-col, .contact-col { text-align: center; }
+    
+    /* 2. O Ícone do Menu (Hamburger) */
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: var(--secondary-color);
+    }
+
+    /* 3. A Lista de Links (Escondida por padrão) */
+    .nav-links {
+        position: absolute;
+        top: 100px; /* Altura do Header */
+        right: 0;
+        height: calc(100vh - 100px);
+        background-color: var(--white);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Centraliza os links verticalmente */
+        width: 70%; /* Largura da gaveta */
+        transform: translateX(100%); /* Esconde para a direita */
+        transition: transform 0.3s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
+
+    /* Espaçamento dos links no mobile */
+    .nav-links li {
+        margin: 20px 0;
+        opacity: 0; /* Começa invisível para animar depois (opcional) */
+    }
+
+    /* 4. Estado ATIVO (Quando clica no botão) */
+    .nav-links.active {
+        transform: translateX(0%); /* Traz de volta para a tela */
+    }
+
+    .nav-links.active li {
+        opacity: 1;
+        transition: opacity 0.5s ease 0.2s;
     }
 }
