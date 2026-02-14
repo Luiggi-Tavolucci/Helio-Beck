@@ -1,0 +1,539 @@
+/* --- Reset e Variáveis --- */
+:root {
+    /* Paleta extraída da Logo */
+    --primary-color: #2A9D8F; /* Teal Vibrante (Botões/Destaques) */
+    --secondary-color: #0B4F48; /* Verde Petróleo Escuro (Títulos/Hover) */
+    --text-color: #333333;
+    --light-bg: #F4F9F8; /* Fundo suave levemente esverdeado */
+    --white: #ffffff;
+    --font-main: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: var(--font-main);
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: var(--white);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* --- Layout Geral --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding-top: 140px;
+    padding-bottom: 100px;
+}
+
+/* --- Header & Nav --- */
+header {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(11, 79, 72, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Container da logo (o link <a>) */
+.logo-link {
+    display: block;
+    height: 100px;       /* Altura fixa que a logo vai ocupar na barra */
+    width: 250px;       /* Largura fixa para limitar a área */
+    overflow: hidden;   /* O SEGREDO: Esconde tudo que sair dessa caixa */
+    position: relative; /* Para podermos ajustar a imagem dentro */
+}
+
+/* A imagem em si */
+.logo-img {
+    height: 150px;      /* Aumentamos MUITO a imagem (o dobro do container) */
+    width: auto;
+    
+    /* Agora usamos margens negativas para "puxar" a imagem e esconder o branco */
+    margin-top: -25px;  /* Sobe a imagem para cortar o branco de cima */
+    margin-left: -20px; /* Puxa para esquerda para cortar o branco da lateral */
+    
+    /* Dica: Brinque com esses valores de margin até centralizar perfeitamente */
+}
+
+/* Ajuste a altura da barra de navegação para acomodar bem */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px; /* Altura confortável para o menu */
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-btn {
+    background-color: var(--secondary-color);
+    color: var(--white) !important;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.nav-btn:hover {
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(42, 157, 143, 0.3);
+}
+
+.menu-toggle {
+    display: none; /* Escondido em desktop */
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* --- Hero Section --- */
+/* --- Hero Section: "Atividade Celular" --- */
+.hero {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 0px;
+    position: relative;
+    overflow: hidden; /* Importante para as bolinhas não vazarem */
+    color: var(--white);
+    
+    /* --- MUDANÇA 1: Respiração mais rápida --- */
+    background: linear-gradient(-45deg, #0B4F48, #1a6b63, #2A9D8F, #0e524b);
+    background-size: 400% 400%;
+    /* Mudei de 15s para 7s. Ficou mais dinâmico. */
+    animation: gradientBG 7s ease infinite;
+}
+
+/* --- MUDANÇA 2: Bolinhas se mexendo (Partículas) --- */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; /* Começa fora da tela para poder se mexer */
+    left: -50%;
+    width: 200%; /* O dobro do tamanho para garantir cobertura no movimento */
+    height: 200%;
+    
+    /* A textura de bolinhas */
+    background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 2px);
+    background-size: 40px 40px; /* Espaçamento entre elas */
+    
+    /* A animação de flutuar */
+    /* 60s linear significa que elas se movem numa velocidade constante bem lenta */
+    animation: moveParticles 60s linear infinite;
+    
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Conteúdo da frente */
+.hero-content {
+    z-index: 2;
+    position: relative;
+}
+
+/* --- AS ANIMAÇÕES (Cole no final do CSS) --- */
+
+/* 1. A respiração das cores (agora mais rápida) */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 2. O movimento das partículas (NOVO) */
+/* Elas se movem lentamente na diagonal e giram um pouco */
+@keyframes moveParticles {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        /* Move 300px para baixo e para direita e gira */
+        transform: translate(300px, 300px) rotate(10deg);
+    }
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hero-description {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.4);
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--white);
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+/* --- Títulos das Seções --- */
+h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: var(--secondary-color);
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-color);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* --- Sobre Mim: Estilo Premium --- */
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 80px; /* Mais espaço entre foto e texto */
+    flex-wrap: wrap;
+}
+
+.about-img {
+    flex: 1;
+    min-width: 300px;
+    position: relative; /* Necessário para o efeito de moldura */
+}
+
+.about-img img {
+    width: 100%;
+    border-radius: 20px;
+    position: relative;
+    z-index: 2; /* A foto fica na frente */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15); /* Sombra suave realista */
+}
+
+/* Efeito de Moldura deslocada atrás da foto */
+.about-img::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 20px; /* Deslocado para baixo */
+    left: -20px; /* Deslocado para a esquerda */
+    background-color: var(--primary-color); /* A cor Teal da marca */
+    border-radius: 20px;
+    z-index: 1; /* Fica atrás da foto */
+    opacity: 0.3; /* Levemente transparente */
+}
+
+.about-text {
+    flex: 1.2; /* O texto ocupa um pouco mais de espaço */
+    min-width: 300px;
+}
+
+.about-text h3 {
+    color: var(--secondary-color);
+    font-size: 2rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.8; /* Leitura mais confortável */
+}
+
+/* --- Metodologia: Cards Clean --- */
+.methods {
+    background-color: #f8fcfb; /* Fundo muito levemente esverdeado (quase branco) */
+    position: relative;
+}
+
+/* Detalhe visual de fundo (opcional) */
+.methods::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(42, 157, 143, 0.05) 0%, transparent 70%);
+    z-index: 0;
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.card {
+    background: var(--white);
+    padding: 50px 35px; /* Mais espaço interno */
+    border-radius: 20px;
+    text-align: left; /* Alinhado à esquerda fica mais moderno que centralizado */
+    border: 1px solid transparent; /* Prepara para o hover */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03); /* Sombra muito leve e espalhada */
+    transition: all 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 20px 50px rgba(11, 79, 72, 0.15);
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.card p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Ícone dentro do card */
+.icon-placeholder {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    display: inline-block;
+    background: rgba(42, 157, 143, 0.1); /* Fundo clarinho no ícone */
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-radius: 50%; /* Ícone redondo */
+}
+
+/* --- Conteúdo: Estilo Magazine --- */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Cards um pouco mais largos */
+    gap: 40px;
+}
+
+.content-item {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden; /* Importante para o zoom da imagem não vazar */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.content-item:hover {
+    transform: translateY(-8px); /* Sobe levemente */
+    box-shadow: 0 20px 40px rgba(11, 79, 72, 0.15); /* Sombra esverdeada */
+}
+
+/* Container da imagem para controlar o zoom */
+.content-img-box {
+    overflow: hidden;
+    height: 240px;
+    position: relative;
+}
+
+/* Precisamos alterar um pouco o HTML ou usar seletor direto na img se não tiver a div acima */
+.content-item img {
+    width: 100%;
+    height: 240px; /* Altura fixa */
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Movimento suave */
+}
+
+.content-item:hover img {
+    transform: scale(1.1); /* Zoom na imagem ao passar o mouse */
+}
+
+.content-info {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Uma linha decorativa acima do título */
+.content-info::before {
+    content: 'ARTIGO';
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.content-info h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.content-info p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.content-link {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--primary-color); /* Linha embaixo do link */
+    align-self: flex-start; /* Alinha à esquerda */
+    transition: 0.3s;
+}
+
+.content-link:hover {
+    color: var(--primary-color);
+    padding-bottom: 2px; /* Efeito de clique */
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 60px 0 30px;
+    text-align: center;
+}
+
+.footer-logo {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.social-icons {
+    margin-bottom: 25px;
+}
+
+.social-icons a {
+    color: var(--white);
+    font-size: 1.2rem;
+    margin: 0 10px;
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.social-icons a:hover {
+    background: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.footer-info p {
+    margin-bottom: 10px;
+}
+
+.copyright {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Menu simples mobile (escondido) */
+    }
+    
+    .menu-toggle {
+        display: block; /* Mostra ícone hamburger */
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .about-content {
+        flex-direction: column;
+    }
+    
+    .about-img {
+        width: 100%;
+    }
+}
