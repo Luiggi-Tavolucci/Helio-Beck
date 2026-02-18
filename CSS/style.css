@@ -300,6 +300,94 @@ h2::after {
     line-height: 1.8; /* Leitura mais confortável */
 }
 
+/* --- SEÇÃO JORNADA (Timeline Grid Interativo V3 - Final) --- */
+.journey-section {
+    background-color: var(--white);
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.section-subtitle {
+    text-align: center;
+    max-width: 600px;
+    margin: -30px auto 50px auto;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.journey-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.journey-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 16px;
+    padding: 40px 30px;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    /* Aumentei para 0.8s para acompanhar o número */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;
+    cursor: default;
+    z-index: 1;
+}
+
+/* HOVER DO CARD (O card sobe suavemente) */
+.journey-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(11, 79, 72, 0.15); /* Sombra mais difusa */
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, #f8fcfb 0%, #e0f2f1 100%);
+}
+
+/* --- O EFEITO DO NÚMERO "CRESCENDO DO FUNDO" --- */
+
+/* Estado Inicial (Em repouso) */
+.journey-number {
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    font-size: 7rem; /* Ainda maior para mais impacto */
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: var(--font-main);
+    line-height: 1;
+    z-index: -1;
+    
+    /* O NOVO TRUQUE: Apenas escala, sem mover de lugar */
+    opacity: 0.03; /* Começa quase invisível */
+    transform: scale(0.9); /* Começa ligeiramente menor */
+    
+    /* Transição bem lenta (0.8s) e suave */
+    transition: all 1.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Estado Hover (Quando passa o mouse) */
+.journey-card:hover .journey-number {
+    opacity: 0.2; /* Fica visível */
+    
+    /* Cresce para um tamanho maior que o original, dando ideia de aproximação */
+    transform: scale(1.1); 
+}
+
+/* Conteúdo do Card */
+.journey-card h3 {
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.journey-card p {
+    font-size: 0.95rem;
+    color: #666;
+    position: relative;
+    line-height: 1.6;
+}
+
 /* --- Metodologia: Cards Clean --- */
 .methods {
     background-color: #f8fcfb; /* Fundo muito levemente esverdeado (quase branco) */
@@ -461,6 +549,114 @@ h2::after {
     padding-bottom: 2px; /* Efeito de clique */
 }
 
+/* --- SEÇÃO LIFESTYLE MEDICINE --- */
+.lifestyle-section {
+    background-color: var(--light-bg); /* Fundo levemente esverdeado */
+    text-align: center;
+}
+
+.lifestyle-header {
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+}
+
+/* Tag decorativa acima do título */
+.tag {
+    display: inline-block;
+    background-color: rgba(42, 157, 143, 0.1);
+    color: var(--primary-color);
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.lifestyle-intro {
+    font-size: 1.15rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.lifestyle-intro strong {
+    color: var(--secondary-color);
+}
+
+/* Grid dos 6 Pilares */
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.pillar-card {
+    background: var(--white);
+    padding: 40px 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.pillar-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 20px 40px rgba(11, 79, 72, 0.1);
+}
+
+.pillar-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    /* Um brilho suave atrás do ícone */
+    filter: drop-shadow(0 5px 15px rgba(42, 157, 143, 0.2));
+    transition: 0.3s;
+}
+
+.pillar-card:hover .pillar-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.pillar-card h3 {
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.pillar-card p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Frase de Efeito Final */
+.lifestyle-cta p {
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    font-weight: 300;
+}
+
+.lifestyle-cta strong {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .pillars-grid {
+        grid-template-columns: 1fr 1fr; /* 2 colunas no tablet */
+    }
+}
+
+@media (max-width: 500px) {
+    .pillars-grid {
+        grid-template-columns: 1fr; /* 1 coluna no celular pequeno */
+    }
+}
+
 /* --- Footer Premium (2 Colunas) --- */
 footer {
     background-color: var(--secondary-color);
@@ -556,6 +752,83 @@ footer {
     margin-top: 20px;
     font-size: 0.9rem;
     opacity: 0.7;
+}
+
+/* --- SEÇÃO FAQ (Perguntas Frequentes Premium) --- */
+.faq-section {
+    background-color: #fafafa; /* Fundo levemente cinza para separar visualmente */
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.faq-item {
+    background: var(--white);
+    padding: 35px;
+    border-radius: 16px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+/* Efeito Hover: Sobe levemente e ganha sombra verde */
+.faq-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(11, 79, 72, 0.1);
+    border-color: var(--primary-color);
+}
+
+/* Título da Pergunta */
+.faq-item h4 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding-right: 30px; /* Espaço para não bater no ícone */
+}
+
+/* Resposta */
+.faq-item p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* --- ÍCONE DE INTERROGAÇÃO DECORATIVO --- */
+.faq-item::after {
+    content: '?';
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 4rem;
+    font-weight: 900;
+    font-family: var(--font-main);
+    color: var(--primary-color);
+    opacity: 0.1; /* Bem clarinho no fundo */
+    line-height: 1;
+    transition: 0.3s;
+}
+
+/* Quando passa o mouse, a interrogação "acende" um pouco e gira */
+.faq-item:hover::after {
+    opacity: 0.2;
+    transform: rotate(15deg) scale(1.1);
+    top: 15px; /* Sobe um pouquinho */
+}
+
+/* Ajuste Mobile */
+@media (max-width: 768px) {
+    .faq-grid {
+        grid-template-columns: 1fr; /* Uma coluna no celular */
+    }
 }
 
 /* --- Barra Inferior --- */
