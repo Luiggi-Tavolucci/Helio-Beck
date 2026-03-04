@@ -457,96 +457,425 @@ h2::after {
     border-radius: 50%; /* Ícone redondo */
 }
 
-/* --- Conteúdo: Estilo Magazine --- */
-.content-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Cards um pouco mais largos */
-    gap: 40px;
+/* --- SEÇÃO PACOTES (Pricing Tables com Efeito Focus/Blur) --- */
+.pricing-section {
+    background-color: #f9f9f9;
+    position: relative;
+    padding-bottom: 100px;
 }
 
-.content-item {
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    align-items: center; 
+}
+
+/* Base do Card */
+.pricing-card {
     background: var(--white);
-    border-radius: 16px;
-    overflow: hidden; /* Importante para o zoom da imagem não vazar */
+    border-radius: 20px;
+    padding: 40px 30px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: all 0.4s ease;
     border: 1px solid rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-}
-
-.content-item:hover {
-    transform: translateY(-8px); /* Sobe levemente */
-    box-shadow: 0 20px 40px rgba(11, 79, 72, 0.15); /* Sombra esverdeada */
-}
-
-/* Container da imagem para controlar o zoom */
-.content-img-box {
-    overflow: hidden;
-    height: 240px;
+    height: 100%;
     position: relative;
+    z-index: 1; /* Garante a ordem inicial */
+    
+    /* Transição suave para o efeito de blur e zoom */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Precisamos alterar um pouco o HTML ou usar seletor direto na img se não tiver a div acima */
-.content-item img {
-    width: 100%;
-    height: 240px; /* Altura fixa */
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Movimento suave */
+/* --- A MÁGICA DO BLUR (Corrigida) --- */
+
+/* 1. SE a grade TEM um card sendo focado (:has), pegue os cards que NÃO estão focados (:not) e aplique o blur */
+.pricing-grid:has(.pricing-card:hover) .pricing-card:not(:hover) {
+    filter: blur(4px);
+    opacity: 0.6;
+    transform: scale(0.98);
 }
 
-.content-item:hover img {
-    transform: scale(1.1); /* Zoom na imagem ao passar o mouse */
+/* 2. O card exato que está com o mouse cresce e ganha destaque */
+.pricing-card:hover {
+    transform: scale(1.05) translateY(-10px); 
+    box-shadow: 0 25px 50px rgba(11, 79, 72, 0.2); 
+    border-color: var(--primary-color);
+    z-index: 2; 
 }
+/* ------------------------ */
 
-.content-info {
-    padding: 30px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-/* Uma linha decorativa acima do título */
-.content-info::before {
-    content: 'ARTIGO';
-    font-size: 0.75rem;
-    color: var(--primary-color);
-    letter-spacing: 2px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.content-info h3 {
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-    color: var(--secondary-color);
-    line-height: 1.3;
-    font-weight: 700;
-}
-
-.content-info p {
-    color: #666;
-    font-size: 0.95rem;
+/* Textos e Detalhes Internos */
+.pricing-header {
+    text-align: center;
     margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
 }
 
-.content-link {
+.pricing-header h3 {
     color: var(--secondary-color);
+    font-size: 1.8rem;
     font-weight: 700;
-    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.plan-duration {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding-bottom: 5px;
-    border-bottom: 2px solid var(--primary-color); /* Linha embaixo do link */
-    align-self: flex-start; /* Alinha à esquerda */
+}
+
+.pricing-focus {
+    background: var(--light-bg);
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.pricing-features {
+    flex-grow: 1;
+    margin-bottom: 30px;
+}
+
+.pricing-features li {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: #555;
+    position: relative;
+    padding-left: 25px;
+    line-height: 1.5;
+}
+
+.pricing-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--primary-color);
+    font-weight: 900;
+}
+
+.pricing-price {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    line-height: 1;
+}
+
+.pricing-price .currency {
+    font-size: 1.5rem;
+    vertical-align: super;
+    margin-right: 5px;
+    color: #888;
+}
+
+.pricing-price .installments {
+    display: block;
+    font-size: 0.9rem;
+    color: #888;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.pricing-btn {
+    text-align: center;
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: 2px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    border-radius: 50px;
+    font-weight: bold;
     transition: 0.3s;
 }
 
-.content-link:hover {
+.pricing-btn:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+/* Tag "Mais Escolhido" */
+.popular-tag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 5px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* --- DESTAQUE NEW LIFESTYLE (PREMIUM) --- */
+/* Mantemos as cores exclusivas dele, mas ele obedece ao mesmo blur dos outros */
+.premium-pricing {
+    background: var(--secondary-color); 
+    color: var(--white);
+}
+
+.premium-pricing .pricing-header h3,
+.premium-pricing .plan-duration,
+.premium-pricing .pricing-features li,
+.premium-pricing .pricing-price {
+    color: var(--white);
+}
+
+.premium-pricing .pricing-price .currency,
+.premium-pricing .pricing-price .installments {
+    color: rgba(255,255,255,0.7);
+}
+
+.premium-pricing .pricing-focus {
+    background: rgba(255,255,255,0.1);
+    color: var(--white);
+}
+
+.premium-pricing .pricing-btn {
+    border-color: var(--white);
+    color: var(--white);
+}
+
+.premium-pricing .pricing-btn:hover {
+    background: var(--white);
+    color: var(--secondary-color);
+}
+
+/* --- SERVIÇO AVULSO (Avaliação Física Horizontal) --- */
+.standalone-service {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 40px; /* Espaço para afastar dos pacotes acima */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Detalhe visual (uma faixinha lateral verde) */
+.standalone-service::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 6px;
+    background-color: var(--primary-color);
+}
+
+.standalone-content {
+    flex: 1; /* Ocupa o espaço que sobrar */
+}
+
+.standalone-tag {
+    background-color: rgba(42, 157, 143, 0.1);
     color: var(--primary-color);
-    padding-bottom: 2px; /* Efeito de clique */
+    margin-bottom: 15px;
+}
+
+.standalone-content h3 {
+    color: var(--secondary-color);
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.standalone-content p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.standalone-action {
+    text-align: center;
+    min-width: 200px;
+    padding-left: 40px;
+    border-left: 1px solid #eee; /* Linha dividindo texto e preço */
+}
+
+.standalone-price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.standalone-price .currency {
+    font-size: 1.2rem;
+    vertical-align: super;
+    margin-right: 5px;
+    color: #888;
+}
+
+.btn-standalone {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-standalone:hover {
+    background-color: var(--secondary-color);
+    color: var(--white); /* Essa linha garante que o texto fique visível! */
+    transform: translateY(-2px);
+}
+
+/* Responsividade: Empilha tudo no celular */
+@media (max-width: 768px) {
+    .standalone-service {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+    
+    .standalone-action {
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding-left: 0;
+        padding-top: 30px;
+        width: 100%;
+    }
+}
+
+/* --- TABELA COMPARATIVA DE PACOTES --- */
+.comparison-wrapper {
+    margin-top: 80px;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.comparison-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.comparison-header h3 {
+    color: var(--secondary-color);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.comparison-header p {
+    color: #666;
+    font-size: 1.05rem;
+}
+
+.table-responsive {
+    overflow-x: auto; /* Permite rolar no celular sem quebrar a tela */
+    border-radius: 12px;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px; /* Força um tamanho mínimo para não esmagar textos */
+    text-align: center;
+}
+
+.comparison-table th, 
+.comparison-table td {
+    padding: 20px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Coluna da Esquerda (Benefícios) */
+.comparison-table td:first-child {
+    text-align: left;
+    color: var(--text-color);
+    width: 35%;
+}
+
+/* Cabeçalho */
+.comparison-table th {
+    background-color: var(--light-bg);
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 25px 15px;
+}
+
+.comparison-table th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.comparison-table th:last-child {
+    border-top-right-radius: 12px;
+}
+
+/* Linhas Gerais */
+.comparison-table td {
+    color: #555;
+    font-size: 1rem;
+}
+
+/* Linha Hover (Acende quando passa o mouse) */
+.comparison-table tbody tr:hover {
+    background-color: #fcfcfc;
+}
+
+/* Células Vazias (Onde tem o tracinho '-') */
+.empty-cell {
+    color: #ccc !important;
+    font-weight: 300;
+}
+
+/* --- DESTAQUE DA COLUNA "NEW LIFESTYLE" --- */
+.highlight-col {
+    background-color: var(--secondary-color);
+    color: var(--white) !important;
+}
+
+.comparison-table th.highlight-col {
+    background-color: #083d38; /* Um tom ainda mais escuro para o cabeçalho */
+    color: var(--white);
+    font-size: 1.2rem;
+}
+
+.highlight-col.check-cell {
+    color: #48e5d2 !important; /* Um verde neon para o "✔ Incluso" */
+    font-weight: 700;
+}
+
+/* Responsividade Mobile para a Tabela */
+@media (max-width: 768px) {
+    .comparison-wrapper {
+        padding: 20px;
+        margin-top: 50px;
+    }
+    
+    .comparison-header h3 {
+        font-size: 1.5rem;
+    }
 }
 
 /* --- SEÇÃO LIFESTYLE MEDICINE --- */
