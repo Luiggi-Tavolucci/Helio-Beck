@@ -200,14 +200,6 @@ header {
     text-transform: uppercase;
 }
 
-.hero-description {
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .btn {
     display: inline-block;
     background-color: var(--primary-color);
@@ -245,59 +237,117 @@ h2::after {
     border-radius: 2px;
 }
 
-/* --- SOBRE MIM: Estilo Premium --- */
-.about-content {
+/* --- SEÇÃO SOBRE MIM --- */
+.sobre-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+/* Flexbox para colocar Texto na Esquerda e Foto na Direita */
+.sobre-container {
     display: flex;
-    align-items: center;
-    gap: 80px; /* Mais espaço entre foto e texto */
-    flex-wrap: wrap;
+    align-items: center; /* Centraliza verticalmente a foto com o texto */
+    gap: 60px;
+    justify-content: space-between;
 }
 
-.about-img {
-    flex: 1;
-    min-width: 300px;
-    position: relative; /* Necessário para o efeito de moldura */
+.sobre-content {
+    flex: 1.2; /* Ocupa um pouco mais de espaço para acomodar bem os pilares */
 }
 
-.about-img img {
-    width: 100%;
-    border-radius: 20px;
-    position: relative;
-    z-index: 2; /* A foto fica na frente */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15); /* Sombra suave realista */
+.sobre-image {
+    flex: 0.8; /* A foto fica um pouco mais contida */
+    text-align: right;
 }
 
-/* Efeito de Moldura deslocada atrás da foto */
-.about-img::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 20px; /* Deslocado para baixo */
-    left: -20px; /* Deslocado para a esquerda */
-    background-color: var(--primary-color); /* A cor Teal da marca */
-    border-radius: 20px;
-    z-index: 1; /* Fica atrás da foto */
-    opacity: 0.3; /* Levemente transparente */
+.sobre-image img {
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    object-fit: cover;
 }
 
-.about-text {
-    flex: 1.2; /* O texto ocupa um pouco mais de espaço */
-    min-width: 300px;
-}
-
-.about-text h3 {
+/* Tipografia do Sobre */
+.sobre-content h2 {
     color: var(--secondary-color);
-    font-size: 2rem;
-    margin-bottom: 25px;
-    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 8px;
 }
 
-.about-text p {
-    font-size: 1.1rem;
+.sobre-subtitle {
+    color: var(--primary-color);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.sobre-content p {
     color: #555;
-    margin-bottom: 20px;
-    line-height: 1.8; /* Leitura mais confortável */
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* --- GRID DOS 6 PILARES --- */
+.pilares-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas no PC */
+    gap: 20px;
+    margin-top: 35px;
+}
+
+.pilar-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background: #f8fcfb; /* Fundo bem suave */
+    padding: 18px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.pilar-item:hover {
+    transform: translateX(5px);
+    background: var(--white);
+    box-shadow: 0 5px 15px rgba(42, 157, 143, 0.1);
+}
+
+.pilar-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.pilar-texto h4 {
+    color: var(--secondary-color);
+    font-size: 1.05rem;
+    margin-bottom: 5px;
+}
+
+.pilar-texto p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* --- RESPONSIVIDADE MOBILE --- */
+@media (max-width: 992px) {
+    .sobre-container {
+        flex-direction: column; /* Coloca o texto em cima e a foto embaixo no celular */
+        gap: 40px;
+    }
+    
+    .sobre-image {
+        text-align: center;
+    }
+    
+    .pilares-grid {
+        grid-template-columns: 1fr; /* Uma coluna só para os pilares no celular */
+    }
 }
 
 /* --- SEÇÃO JORNADA (Timeline Grid Interativo V3 - Final) --- */
