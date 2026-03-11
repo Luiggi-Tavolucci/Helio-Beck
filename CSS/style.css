@@ -772,6 +772,8 @@ h2::after {
     text-transform: uppercase;
 }
 
+
+
 /* --- DESTAQUE NEW LIFESTYLE (PREMIUM) --- */
 /* Mantemos as cores exclusivas dele, mas ele obedece ao mesmo blur dos outros */
 .premium-pricing {
@@ -806,109 +808,307 @@ h2::after {
     color: var(--secondary-color);
 }
 
-/* --- SERVIÇO AVULSO (Avaliação Física Horizontal) --- */
-.standalone-service {
-    background: var(--white);
+/* ========================================== */
+/* GRID DOS CARDS SECUNDÁRIOS                 */
+/* ========================================== */
+.cards-secundarios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide a tela no meio */
+    gap: 30px;
+    margin-top: 50px; /* Respiro após os pacotes principais */
+    align-items: stretch; /* Garante a mesma altura para os dois cards */
+}
+
+/* --- CARD ULTRASSOM (ESQUERDA) --- */
+.card-ultrassom {
+    background-color: var(--white);
     border-radius: 16px;
-    padding: 40px;
-    margin-top: 40px; /* Espaço para afastar dos pacotes acima */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    border-left: 6px solid var(--secondary-color); /* A barra verde lateral igual à foto original */
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tag-avulso, .tag-gratis {
+    background-color: #e8f3f1; /* Verde bem clarinho */
+    color: var(--primary-color);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 20px;
+    align-self: flex-start;
+}
+
+.card-ultrassom h3, .card-ebook h3 {
+    color: var(--secondary-color);
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.card-ultrassom p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    flex-grow: 1; /* Empurra o preço e o botão para baixo */
+}
+
+/* O rodapé do card com o preço na esquerda e o botão na direita */
+.card-ultrassom-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 40px;
-    position: relative;
-    overflow: hidden;
 }
 
-/* Detalhe visual (uma faixinha lateral verde) */
-.standalone-service::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 6px;
+.card-ultrassom-footer .preco {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.card-ultrassom-footer .moeda {
+    font-size: 1rem;
+    margin-top: 6px;
+    color: #777;
+    font-weight: 700;
+}
+
+/* --- BOTÕES TEAL --- */
+.btn-teal {
     background-color: var(--primary-color);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+    white-space: nowrap;
 }
 
-.standalone-content {
-    flex: 1; /* Ocupa o espaço que sobrar */
+.btn-teal:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(11, 79, 72, 0.3);
 }
 
-.standalone-tag {
-    background-color: rgba(42, 157, 143, 0.1);
+/* ========================================== */
+/* GRID DOS CARDS SECUNDÁRIOS                 */
+/* ========================================== */
+.cards-secundarios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide a tela no meio */
+    gap: 30px;
+    margin-top: 50px;
+    align-items: stretch; /* Garante a mesma altura para os dois */
+}
+
+/* --- CARD ULTRASSOM (Mantenha o estilo anterior) --- */
+.card-ultrassom {
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+    border-left: 6px solid var(--secondary-color); /* Barra verde lateral tema */
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tag-avulso {
+    background-color: #e8f3f1; /* Verde clarinho tema */
     color: var(--primary-color);
-    margin-bottom: 15px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 20px;
+    align-self: flex-start;
 }
 
-.standalone-content h3 {
+.card-ultrassom h3 {
     color: var(--secondary-color);
     font-size: 1.6rem;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    line-height: 1.3;
 }
 
-.standalone-content p {
+.card-ultrassom p {
     color: #555;
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.6;
-    margin: 0;
+    margin-bottom: 30px;
+    flex-grow: 1; /* Empurra o footer para baixo */
 }
 
-.standalone-action {
-    text-align: center;
-    min-width: 200px;
-    padding-left: 40px;
-    border-left: 1px solid #eee; /* Linha dividindo texto e preço */
+/* Rodapé do card Ultrassom */
+.card-ultrassom-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Garante alinhamento no fundo */
 }
 
-.standalone-price {
-    font-size: 2.5rem;
-    font-weight: 700;
+.card-ultrassom-footer .preco {
+    font-size: 2.2rem;
+    font-weight: 800;
     color: var(--secondary-color);
-    line-height: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.card-ultrassom-footer .moeda {
+    font-size: 1rem;
+    margin-top: 6px;
+    color: #777;
+    font-weight: 700;
+}
+
+
+/* --- NOVOS ESTILOS PARA O CARD E-BOOK DESTAQUE (DIREITA) --- */
+.card-ebook-destaque {
+    /* Gradiente verde escuro baseado no tema Hélio Beck */
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #146c63 100%);
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    box-shadow: 0 12px 30px rgba(11, 79, 72, 0.15); /* Sombra verde */
+    transition: transform 0.3s ease;
+}
+
+.card-ebook-destaque:hover {
+    transform: translateY(-3px);
+}
+
+.ebook-img-wrapper {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+}
+
+.ebook-img-wrapper img {
+    max-width: 100%;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.25)); /* Sombra mais escura */
+    animation: float 6s ease-in-out infinite; /* Mantive a animação flutuante */
+}
+
+.ebook-info {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Tag Gratis Reversa (Fundo claro, texto verde) no card escuro */
+.tag-gratis-reversa {
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparente branco */
+    color: var(--white); /* Texto branco */
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
     margin-bottom: 20px;
 }
 
-.standalone-price .currency {
-    font-size: 1.2rem;
-    vertical-align: super;
-    margin-right: 5px;
-    color: #888;
+.card-ebook-destaque h3 {
+    color: var(--white); /* Texto branco */
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    line-height: 1.3;
 }
 
-.btn-standalone {
-    display: block;
-    width: 100%;
+.card-ebook-destaque p {
+    color: rgba(255, 255, 255, 0.9); /* Texto quase branco */
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+
+/* ========================================== */
+/* CORREÇÃO DOS BOTÕES (HOVER ISSUE)          */
+/* ========================================== */
+
+/* 1. Botão Geral (Teal) */
+.btn-teal {
     background-color: var(--primary-color);
-    color: var(--white);
-    padding: 12px 20px;
+    color: var(--white); /* Cor padrão visível */
+    padding: 12px 24px;
     border-radius: 50px;
+    font-size: 1rem;
     font-weight: bold;
-    transition: 0.3s;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+    white-space: nowrap;
+    display: inline-block;
 }
 
-.btn-standalone:hover {
-    background-color: var(--secondary-color);
-    color: var(--white); /* Essa linha garante que o texto fique visível! */
+/* CORREÇÃO AQUI: Garante explicitamente que o texto permanece branco no hover */
+.btn-teal:hover {
+    background-color: var(--secondary-color); /* Fundo muda para verde escuro */
+    color: var(--white) !important; /* TEXTO PERMANECE BRANCO E VISÍVEL */
     transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(11, 79, 72, 0.3);
 }
 
-/* Responsividade: Empilha tudo no celular */
-@media (max-width: 768px) {
-    .standalone-service {
-        flex-direction: column;
-        text-align: center;
-        padding: 30px 20px;
+/* 2. Botão Branco (Usado dentro do card Ebook Destaque) */
+.btn-white {
+    background-color: var(--white);
+    color: var(--secondary-color); /* Texto verde tema */
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* CORREÇÃO AQUI: Garante visibilidade no hover do botão branco */
+.btn-white:hover {
+    background-color: #e8f3f1; /* Fundo muda para verde clarinho */
+    color: var(--secondary-color) !important; /* TEXTO PERMANECE VERDE E VISÍVEL */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+
+/* ========================================== */
+/* RESPONSIVIDADE MOBILE                      */
+/* ========================================== */
+@media (max-width: 992px) {
+    .cards-secundarios-grid {
+        grid-template-columns: 1fr; /* Um em cima do outro no celular */
+        gap: 20px;
     }
     
-    .standalone-action {
-        border-left: none;
-        border-top: 1px solid #eee;
-        padding-left: 0;
-        padding-top: 30px;
-        width: 100%;
+    .card-ebook-destaque {
+        flex-direction: column; /* Foto em cima, texto embaixo */
+        text-align: center;
+        padding: 40px 20px;
+    }
+    
+    .ebook-info {
+        align-items: center; /* Centraliza tudo no mobile */
+    }
+
+    .tag-gratis-reversa {
+        align-self: center; /* Centraliza a tag */
     }
 }
 
