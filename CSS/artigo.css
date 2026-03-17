@@ -1,0 +1,172 @@
+/* ========================================== */
+/* PÁGINA DO ARTIGO (MOLDE DE LEITURA)        */
+/* ========================================== */
+
+.post-section {
+    padding-top: 60px; /* Compensa o header fixo */
+    padding-bottom: 80px;
+    background-color: var(--white);
+}
+
+/* Container mais estreito perfeito para leitura */
+.container-sm {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Cabeçalho do Artigo --- */
+.post-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.post-tag {
+    background-color: #e8f3f1;
+    color: var(--primary-color);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.post-title {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-info strong {
+    display: block;
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+}
+
+.author-info span {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* --- Capa --- */
+.post-cover {
+    margin-bottom: 50px;
+}
+
+.post-cover img {
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* --- Corpo do Texto --- */
+.post-content {
+    font-size: 1.15rem; /* Letra maior para leitura confortável */
+    color: #444;
+    line-height: 1.8;
+}
+
+.post-content p {
+    margin-bottom: 25px;
+}
+
+.post-content .lead {
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.post-content h2 {
+    text-align: left;
+    font-size: 2rem;
+    margin: 50px 0 20px 0;
+    color: var(--secondary-color);
+}
+
+.post-content h2::after {
+    display: none; /* Remove a barrinha verde dos subtítulos internos */
+}
+
+.post-content blockquote {
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--primary-color);
+    border-left: 5px solid var(--primary-color);
+    padding: 20px 30px;
+    margin: 40px 0;
+    background-color: #f8fcfb;
+    border-radius: 0 12px 12px 0;
+}
+
+/* --- Call to Action Final --- */
+.post-cta {
+    margin-top: 60px;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    color: var(--white);
+    box-shadow: 0 15px 30px rgba(11, 79, 72, 0.15);
+}
+
+.post-cta h3 {
+    color: var(--white);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.post-cta p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: rgba(255,255,255,0.9);
+}
+
+.post-cta .btn {
+    background-color: var(--white);
+    color: var(--secondary-color);
+}
+
+.post-cta .btn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-3px);
+}
+
+/* Responsividade do Artigo */
+@media (max-width: 768px) {
+    .post-title { font-size: 2.2rem; }
+    .post-content { font-size: 1.05rem; }
+    .post-content .lead { font-size: 1.2rem; }
+    .post-cta { padding: 40px 20px; }
+    .post-cta h3 { font-size: 1.6rem; }
+}

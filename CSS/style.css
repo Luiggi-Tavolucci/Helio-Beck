@@ -1213,6 +1213,155 @@ header {
     color: var(--secondary-color);
 }
 
+/* ========================================== */
+/* VITRINE DO BLOG NA HOME                    */
+/* ========================================== */
+.vitrine-section {
+    background-color: var(--white);
+    padding-bottom: 120px;
+}
+
+.vitrine-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.vitrine-grid {
+    display: grid;
+    /* Divide em exatas 3 colunas no desktop */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.vitrine-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.vitrine-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(11, 79, 72, 0.1);
+    border-color: rgba(42, 157, 143, 0.3);
+}
+
+.vitrine-img {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.vitrine-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.vitrine-card:hover .vitrine-img img {
+    transform: scale(1.08);
+}
+
+.vitrine-cat {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+
+.vitrine-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.vitrine-date {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.vitrine-content h3 {
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    transition: color 0.3s;
+}
+
+.vitrine-card:hover .vitrine-content h3 {
+    color: var(--primary-color);
+}
+
+.vitrine-content p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.vitrine-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+.vitrine-link .arrow {
+    margin-left: 8px;
+    transition: transform 0.3s;
+}
+
+.vitrine-link:hover {
+    color: var(--primary-color);
+}
+
+.vitrine-link:hover .arrow {
+    transform: translateX(5px);
+}
+
+.vitrine-footer {
+    text-align: center;
+}
+
+/* Botão Vazado (Outline) para o link de ver todos */
+.btn-outline-teal {
+    display: inline-block;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.btn-outline-teal:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(42, 157, 143, 0.2);
+}
+
 /* --- SEÇÃO FAQ --- */
 .faq-section {
     background-color: #fafafa;
