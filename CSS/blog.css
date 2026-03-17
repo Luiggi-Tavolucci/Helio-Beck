@@ -132,6 +132,38 @@
     transform: translateX(5px);
 }
 
+/* ========================================== */
+/* PAGINAÇÃO DO BLOG                          */
+/* ========================================== */
+.paginacao-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.btn-pagina {
+    padding: 8px 16px;
+    border: 1px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-pagina:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-pagina.ativo {
+    background-color: var(--primary-color);
+    color: white;
+    cursor: default;
+}
+
 /* --- RESPONSIVIDADE DO BLOG (COLE NO FINAL DO BLOG.CSS) --- */
 @media (max-width: 768px) {
     .blog-hero {

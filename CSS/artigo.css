@@ -162,6 +162,80 @@
     transform: translateY(-3px);
 }
 
+/* ========================================== */
+/* PENTE FINO: PÁGINA DO ARTIGO               */
+/* ========================================== */
+
+/* 1. Evita o pulo do Footer enquanto carrega */
+.post-section {
+    min-height: 100vh; 
+    padding-bottom: 60px;
+}
+
+/* 2. A "Coluna de Leitura" (Trava a largura para não cansar os olhos) */
+.container-sm {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 25px; /* Evita que o texto cole na borda no celular */
+}
+
+/* 3. Imagem de Capa do Artigo */
+.post-cover {
+    margin: 40px auto;
+    max-width: 1000px; /* A foto pode ser um pouco mais larga que o texto para dar destaque */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.post-cover img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+/* 4. Tipografia de Leitura Premium (Espaçamentos e Tamanhos) */
+.post-content p {
+    font-size: 1.15rem; /* Letra um pouquinho maior para facilitar a leitura */
+    line-height: 1.8;   /* Espaço generoso entre as linhas */
+    color: #444;        /* Um cinza bem escuro (não preto puro) descansa a vista */
+    margin-bottom: 25px;
+}
+
+.post-content h2 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+/* 5. Citação (Blockquote) elegante */
+.post-content blockquote {
+    border-left: 5px solid var(--primary-color);
+    background-color: #f4f9f8;
+    padding: 25px 30px;
+    margin: 40px 0;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #333;
+    border-radius: 0 10px 10px 0;
+}
+
+/* 6. Listas e Tópicos */
+.post-content ul, .post-content ol {
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.post-content li {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 10px;
+}
+
 /* Responsividade do Artigo */
 @media (max-width: 768px) {
     .post-title { font-size: 2.2rem; }

@@ -1253,8 +1253,9 @@ header {
 
 .vitrine-img {
     position: relative;
-    height: 200px;
+    height: 160px;
     overflow: hidden;
+    border-bottom: 1px solid rgba(0,0,0,0.05); /* Uma linhazinha sutil para separar a foto do texto */
 }
 
 .vitrine-img img {
@@ -1284,7 +1285,7 @@ header {
 }
 
 .vitrine-content {
-    padding: 25px;
+    padding: 20px 25px 25px 25px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -1340,6 +1341,40 @@ header {
 
 .vitrine-footer {
     text-align: center;
+}
+
+/* Animação suave para a entrada dos posts */
+.fade-in {
+    animation: fadeInSuave 0.6s ease-out forwards;
+    opacity: 0; /* Começa invisível */
+}
+
+@keyframes fadeInSuave {
+    0% { 
+        opacity: 0; 
+        transform: translateY(20px); /* Começa um pouco mais para baixo */
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); /* Volta para a posição original */
+    }
+}
+
+/* Evita que o footer pule enquanto o JavaScript busca os posts na API */
+.vitrine-section {
+    min-height: 70vh; /* Segura o espaço! Garante que a seção ocupe pelo menos 70% da altura do monitor */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Empurra o footer de forma segura usando cálculo matemático */
+.vitrine-section, .post-section {
+    /* Pega 100% da altura da tela e subtrai o tamanho aproximado do Header e do Footer */
+    min-height: calc(100vh - 250px); 
+}
+
+#grid-do-blog {
+    flex-grow: 1; /* Faz a grade empurrar a paginação lá pro fundo */
 }
 
 /* Botão Vazado (Outline) para o link de ver todos */
