@@ -223,7 +223,41 @@ async function carregarArtigoUnico() {
             day: 'numeric', month: 'long', year: 'numeric'
         });
 
-        // 6. Montar a página usando a estrutura que desenhamos antes
+        // ========================================================
+        // 6. MÁGICA DOS BOTÕES AUTOMÁTICOS DO WHATSAPP
+        // ========================================================
+        const textoOriginal = post.content.rendered;
+        const paragrafos = textoOriginal.split('</p>');
+        
+        // ---> TROQUE O NÚMERO AQUI <---
+        const linkWhats = "https://wa.me/55SEUNUMERO?text=Olá! Estava lendo o artigo no blog e gostaria de agendar uma consulta.";
+        
+        const botaoHTML = `
+            <div class="cta-artigo">
+                <p>Gostaria de uma avaliação personalizada com o Helio?</p>
+                <a href="${linkWhats}" target="_blank" class="btn-agendar-artigo">
+                    Agendar Minha Consulta pelo WhatsApp
+                </a>
+            </div>
+        `;
+
+        let textoComBotoes = "";
+        let metadeDoTexto = Math.floor(paragrafos.length / 2);
+
+        // Monta o texto injetando o botão no meio
+        for (let i = 0; i < paragrafos.length; i++) {
+            textoComBotoes += paragrafos[i] + (paragrafos[i] ? '</p>' : '');
+            
+            // Só injeta no meio se o texto for longo o suficiente (mais de 4 parágrafos)
+            if (i === metadeDoTexto && paragrafos.length > 4) {
+                textoComBotoes += botaoHTML;
+            }
+        }
+        // Injeta o segundo botão no finalzinho do texto gerado
+        textoComBotoes += botaoHTML;
+        // ========================================================
+
+        // 7. Montar a página usando a sua estrutura oficial
         const conteudoHTML = `
             <div class="post-header container-sm">
                 <span class="post-tag">${categoriaNome}</span>
@@ -246,7 +280,7 @@ async function carregarArtigoUnico() {
             </div>` : ''}
 
             <article class="post-content container-sm">
-                ${post.content.rendered}
+                ${textoComBotoes}
             </article>
 
             <div class="post-cta container-sm">
@@ -256,7 +290,7 @@ async function carregarArtigoUnico() {
             </div>
         `;
 
-        // 7. Injeta tudo na tela
+        // 8. Injeta tudo na tela
         artigoContainer.innerHTML = conteudoHTML;
 
     } catch (erro) {

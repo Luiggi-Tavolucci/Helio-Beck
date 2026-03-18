@@ -62,6 +62,10 @@
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: 50% 1%; /* Tente 60%, 65% ou 70% até o Helio ficar perfeitamente enquadrado. */
+    /* O BAND-AID: Força o navegador a tentar melhorar o contraste e a nitidez dos pixels */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 .author-info strong {
@@ -160,6 +164,212 @@
 .post-cta .btn:hover {
     background-color: #f0f0f0;
     transform: translateY(-3px);
+}
+
+/* ========================================== */
+/* BOTÕES DE CONVERSÃO (VISUAL LIMPO E FINAL) */
+/* ========================================== */
+
+.cta-artigo {
+    text-align: center;
+    margin: 30px 0;
+    /* REMOVI O VERDE DA ESQUERDA (border-left) */
+    /* Ajustei o padding para ficar centralizado e bonito sem a borda */
+    padding: 25px 30px; 
+    background-color: #f4f9f8; /* Fundo suave para dar destaque à área */
+    border-radius: 8px;
+}
+
+.cta-artigo p {
+    font-size: 0.95rem; 
+    color: #555;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.btn-agendar-artigo {
+    display: inline-block;
+    background-color: #128C7E; /* Verde Escuro Profissional */
+    color: white !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 50px;
+    
+    /* A PEDIDO: REMOVI O SUBLINHADO TOTALMENTE */
+    text-decoration: none !important; /* O !important garante que não pegue estilos de outros links do artigo */
+    
+    box-shadow: 0 4px 15px rgba(18, 140, 126, 0.3);
+    
+    /* Mantendo a animação pulsar de 2 segundos */
+    animation: pulsarBotao 2s infinite ease-in-out; 
+    transition: all 0.3s ease; /* Transição suave para o hover */
+}
+
+/* Quando o mouse passa por cima */
+.btn-agendar-artigo:hover {
+    background-color: #075E54; /* Verde ainda mais escuro */
+    animation: none; /* Para de pulsar para facilitar o clique */
+    transform: translateY(-2px); /* Dá uma leve subidinha */
+    text-decoration: none !important; /* Garante que não apareça sublinhado no hover */
+}
+
+/* ========================================== */
+/* RECEITA DA ANIMAÇÃO (EFEITO RESPIRAÇÃO)    */
+/* ========================================== */
+@keyframes pulsarBotao {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); } /* Aumento sutil de 3% */
+    100% { transform: scale(1); }
+}
+
+/* ========================================== */
+/* PADRONIZAÇÃO AUTOMÁTICA DO TEXTO (WP)      */
+/* ========================================== */
+
+/* 1. Regra Geral do Texto */
+.post-content {
+    color: #333333; /* Cinza bem escuro, cansa menos a vista que o preto puro */
+    font-size: 1.15rem; /* Letra num tamanho confortável para leitura longa */
+    line-height: 1.8; /* O segredo da legibilidade: bastante espaço entre as linhas */
+}
+
+/* 2. Parágrafos */
+.post-content p {
+    margin-bottom: 25px; /* Respiro generoso entre um parágrafo e outro */
+}
+
+/* 3. Subtítulos que o Helio criar (H2 e H3) */
+.post-content h2 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin-top: 50px; /* Muito espaço EM CIMA para separar os assuntos */
+    margin-bottom: 20px; /* Pouco espaço EMBAIXO para grudar no texto que o segue */
+    font-weight: 700;
+}
+
+.post-content h3 {
+    font-size: 1.4rem;
+    color: #2c2c2c;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* 4. Imagens soltas no meio do texto */
+.post-content img {
+    max-width: 100%; /* Impede que a foto vaze da tela no celular */
+    height: auto;
+    border-radius: 8px; /* Cantos levemente arredondados */
+    margin: 35px 0; /* Espaço em cima e embaixo da foto */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Uma sombra muito elegante e suave */
+    display: block; /* Garante que ela ocupe a linha toda sozinha */
+}
+
+/* 5. Listas com pontinhos ou números (ul, ol) */
+.post-content ul, 
+.post-content ol {
+    margin-bottom: 25px;
+    padding-left: 20px;
+}
+
+.post-content li {
+    margin-bottom: 10px; /* Espaço entre os itens da lista */
+}
+
+/* 6. Citações (Se o Helio usar a ferramenta "Citação/Quote" do WordPress) */
+.post-content blockquote {
+    border-left: 4px solid #25D366; /* A linha lateral com a cor de destaque do site */
+    background-color: #f4f9f8; /* Fundo suave */
+    padding: 20px 25px;
+    margin: 35px 0;
+    font-style: italic;
+    color: #555;
+    border-radius: 0 8px 8px 0;
+}
+
+/* 7. Links no meio do texto */
+.post-content a {
+    color: #25D366; /* O link fica com a cor primária */
+    text-decoration: underline;
+    text-decoration-color: rgba(37, 211, 102, 0.3); /* Um sublinhado mais fraquinho */
+    text-underline-offset: 3px; /* Afasta o sublinhado da palavra */
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.post-content a:hover {
+    color: #1ebc59; /* Escurece um pouco ao passar o mouse */
+    text-decoration-color: #1ebc59;
+}
+
+/* ========================================== */
+/* 8. TABELAS (RESPONSIVAS E ELEGANTES)       */
+/* ========================================== */
+
+.post-content table {
+    width: 100%;
+    /* Mudança técnica: 'separate' + 'spacing: 0' permite usar border-radius E a borda externa */
+    border-collapse: separate; 
+    border-spacing: 0;
+    margin: 35px 0;
+    font-size: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05); /* Sombra um pouco mais visível */
+    border-radius: 10px; /* Cantos um pouco mais arredondados */
+    overflow: hidden; /* Garante que o conteúdo das células respeite o arredondamento da tabela */
+
+    /* >>> A BORDA DO TEMA DO HELIO <<< */
+    /* Usando o verde principal #25D366 com uma espessura elegante de 3px */
+    border: 3px solid #158c40; 
+}
+
+/* O Cabeçalho da Tabela */
+.post-content table thead {
+    background-color: #158c40; 
+    color: #ffffff;
+}
+
+/* Células do Header: Tira a borda padrão de baixo para não chocar com a borda externa verde */
+.post-content table th {
+    padding: 18px 20px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border-bottom: none; 
+}
+
+/* Células do Corpo (td): Mantém as linhas internas horizontais em cinza suave */
+.post-content table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    line-height: 1.5;
+    color: #444;
+}
+
+/* Tira a linha debaixo da última fileira para um acabamento perfeito */
+.post-content table tbody tr:last-of-type td {
+    border-bottom: none; 
+}
+
+/* Efeito Hover nas linhas do corpo */
+.post-content table tbody tr:hover td {
+    background-color: #f4f9f8; 
+    transition: background-color 0.2s ease;
+}
+
+/* ========================================== */
+/* A MÁGICA: ROLAGEM APENAS NO CELULAR        */
+/* ========================================== */
+@media (max-width: 768px) {
+    .post-content table {
+        display: block; 
+        overflow-x: auto; 
+        white-space: nowrap; /* Ativa a rolagem lateral com o dedo APENAS em telas pequenas */
+    }
 }
 
 /* ========================================== */
