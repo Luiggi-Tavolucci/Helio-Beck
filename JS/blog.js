@@ -227,34 +227,49 @@ async function carregarArtigoUnico() {
         // 6. MÁGICA DOS BOTÕES AUTOMÁTICOS DO WHATSAPP
         // ========================================================
         const textoOriginal = post.content.rendered;
-        const paragrafos = textoOriginal.split('</p>');
+        
+        // Separa o texto em blocos usando o fechamento de parágrafo
+        const paragrafosBrutos = textoOriginal.split('</p>');
+        // Filtra para remover pedaços em branco e evitar bugs na contagem
+        const paragrafos = paragrafosBrutos.filter(p => p.trim() !== '');
         
         // ---> TROQUE O NÚMERO AQUI <---
-        const linkWhats = "https://wa.me/55SEUNUMERO?text=Olá! Estava lendo o artigo no blog e gostaria de agendar uma consulta.";
+        const linkWhats = "https://wa.me/message/3OIFAKX5ZLDVM1?text=Olá! Estava lendo o artigo no blog e gostaria de agendar uma consulta.";
         
         const botaoHTML = `
             <div class="cta-artigo">
                 <p>Gostaria de uma avaliação personalizada com o Helio?</p>
-                <a href="${linkWhats}" target="_blank" class="btn-agendar-artigo">
+                <a href="https://wa.me/message/3OIFAKX5ZLDVM1" target="_blank" class="btn-agendar-artigo">
                     Agendar Minha Consulta pelo WhatsApp
                 </a>
             </div>
         `;
 
         let textoComBotoes = "";
-        let metadeDoTexto = Math.floor(paragrafos.length / 2);
 
-        // Monta o texto injetando o botão no meio
+        // Calcula os pontos exatos de 1/3 e 2/3 do texto
+        let terco1 = Math.floor(paragrafos.length / 3);
+        let terco2 = Math.floor((paragrafos.length * 2) / 3);
+
+        // Monta o texto injetando os botões de forma proporcional
         for (let i = 0; i < paragrafos.length; i++) {
-            textoComBotoes += paragrafos[i] + (paragrafos[i] ? '</p>' : '');
+            textoComBotoes += paragrafos[i] + '</p>';
             
-            // Só injeta no meio se o texto for longo o suficiente (mais de 4 parágrafos)
-            if (i === metadeDoTexto && paragrafos.length > 4) {
-                textoComBotoes += botaoHTML;
+            // Só espalha dois botões se o texto tiver pelo menos 4 parágrafos
+            if (paragrafos.length >= 4) {
+                // Injeta no exato momento que atingir o primeiro e o segundo terço
+                if (i === terco1 || i === terco2) {
+                    textoComBotoes += botaoHTML;
+                }
+            } 
+            // Se o texto for curtinho (2 ou 3 parágrafos), bota só um botão no meio
+            else if (paragrafos.length > 1) {
+                let meio = Math.floor(paragrafos.length / 2);
+                if (i === meio) {
+                    textoComBotoes += botaoHTML;
+                }
             }
         }
-        // Injeta o segundo botão no finalzinho do texto gerado
-        textoComBotoes += botaoHTML;
         // ========================================================
 
         // 7. Montar a página usando a sua estrutura oficial
@@ -286,7 +301,7 @@ async function carregarArtigoUnico() {
             <div class="post-cta container-sm">
                 <h3>Invista na sua saúde</h3>
                 <p>Agende agora mesmo sua consulta com Helio Beck e descubra como a Medicina do Estilo de Vida pode transformar sua vida.</p>
-                <a href="index.html#contato" class="btn">Agendar Minha Consulta</a>
+                <a href="https://wa.me/message/3OIFAKX5ZLDVM1" target="_blank" class="btn">Agendar Minha Consulta</a>
             </div>
         `;
 

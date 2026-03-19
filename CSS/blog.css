@@ -2,17 +2,36 @@
 /* PÁGINA DO BLOG (CATÁLOGO)                  */
 /* ========================================== */
 
-/* Hero simples focado em título */
-.blog-hero {
+/* --- Elementos de Navegação --- */
+.nav-item-active {
+    color: var(--primary-color) !important;
+    font-weight: 700;
+}
+
+/* --- Hero Section (Ajustado com o HTML limpo) --- */
+.blog-hero-section {
     background-color: var(--light-bg);
-    padding: 180px 0 80px 0; /* Padding top maior para compensar o header fixo */
+    padding: 160px 0 80px 0; 
     text-align: center;
 }
 
-.blog-hero h1 {
+.blog-hero-section h1 {
     color: var(--secondary-color);
     font-size: 3rem;
     margin-bottom: 15px;
+}
+
+.blog-hero-section p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- Área de Listagem --- */
+.vitrine-section {
+    padding-top: 60px;
+    min-height: 50vh; /* Garante que o rodapé não suba se a internet demorar a carregar */
 }
 
 .blog-catalog {
@@ -26,7 +45,7 @@
     gap: 40px;
 }
 
-/* O Card do Artigo */
+/* --- O Card do Artigo --- */
 .blog-card {
     background: var(--white);
     border-radius: 16px;
@@ -164,13 +183,23 @@
     cursor: default;
 }
 
-/* --- RESPONSIVIDADE DO BLOG (COLE NO FINAL DO BLOG.CSS) --- */
+/* ========================================== */
+/* RODAPÉ DO BLOG (EXTRAÍDO DO HTML)          */
+/* ========================================== */
+.blog-footer {
+    background-color: var(--secondary-color);
+    padding: 40px 0;
+    text-align: center;
+    color: white;
+}
+
+/* --- RESPONSIVIDADE DO BLOG --- */
 @media (max-width: 768px) {
-    .blog-hero {
+    .blog-hero-section {
         padding: 150px 20px 60px 20px;
     }
     
-    .blog-hero h1 {
+    .blog-hero-section h1 {
         font-size: 2.2rem;
     }
     

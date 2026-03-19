@@ -1,21 +1,29 @@
+/* ========================================================================== */
+/* PÁGINA DO ARTIGO (MOLDE DE LEITURA & HEADLESS CMS)
+/* ========================================================================== */
+
 /* ========================================== */
-/* PÁGINA DO ARTIGO (MOLDE DE LEITURA)        */
+/* 1. LAYOUT GERAL E CONTAINERS               */
 /* ========================================== */
 
 .post-section {
     padding-top: 60px; /* Compensa o header fixo */
     padding-bottom: 80px;
     background-color: var(--white);
+    min-height: 100vh; /* Evita o pulo do Footer enquanto carrega */
 }
 
-/* Container mais estreito perfeito para leitura */
+/* A "Coluna de Leitura" (Trava a largura para não cansar os olhos) */
 .container-sm {
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 25px; /* Respiro lateral no celular */
 }
 
-/* --- Cabeçalho do Artigo --- */
+/* ========================================== */
+/* 2. CABEÇALHO DO ARTIGO (HEADER E META)     */
+/* ========================================== */
+
 .post-header {
     text-align: center;
     margin-bottom: 40px;
@@ -62,9 +70,8 @@
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    object-position: 50% 1%; /* Tente 60%, 65% ou 70% até o Helio ficar perfeitamente enquadrado. */
-    /* O BAND-AID: Força o navegador a tentar melhorar o contraste e a nitidez dos pixels */
-    image-rendering: -webkit-optimize-contrast;
+    object-position: 50% 1%; 
+    image-rendering: -webkit-optimize-contrast; /* Melhora nitidez */
     image-rendering: crisp-edges;
 }
 
@@ -79,30 +86,41 @@
     font-size: 0.9rem;
 }
 
-/* --- Capa --- */
+/* ========================================== */
+/* 3. IMAGEM DE CAPA                          */
+/* ========================================== */
+
 .post-cover {
-    margin-bottom: 50px;
+    margin: 40px auto;
+    max-width: 1000px; /* Levemente mais larga que o texto para destaque */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .post-cover img {
     width: 100%;
-    max-height: 600px;
+    height: auto;
+    max-height: 500px;
     object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: block;
 }
 
-/* --- Corpo do Texto --- */
+/* ========================================== */
+/* 4. CORPO DO TEXTO (PADRÃO DE LEITURA WP)   */
+/* ========================================== */
+
 .post-content {
-    font-size: 1.15rem; /* Letra maior para leitura confortável */
-    color: #444;
-    line-height: 1.8;
+    color: #333333; /* Cinza escuro descansa a vista */
+    font-size: 1.15rem; /* Letra num tamanho confortável para leitura longa */
+    line-height: 1.8; /* Bastante espaço entre as linhas */
 }
 
 .post-content p {
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* Respiro generoso entre parágrafos */
 }
 
+/* Texto de introdução (Opcional se o Helio usar a classe .lead) */
 .post-content .lead {
     font-size: 1.4rem;
     color: var(--secondary-color);
@@ -111,29 +129,175 @@
     margin-bottom: 40px;
 }
 
+/* Subtítulos */
 .post-content h2 {
-    text-align: left;
-    font-size: 2rem;
-    margin: 50px 0 20px 0;
+    font-size: 1.8rem;
     color: var(--secondary-color);
+    margin-top: 50px; 
+    margin-bottom: 20px; 
+    font-weight: 700;
+    text-align: left;
 }
 
 .post-content h2::after {
-    display: none; /* Remove a barrinha verde dos subtítulos internos */
+    display: none; /* Remove a barrinha verde global dos subtítulos internos */
 }
 
-.post-content blockquote {
+.post-content h3 {
     font-size: 1.4rem;
-    font-style: italic;
-    color: var(--primary-color);
-    border-left: 5px solid var(--primary-color);
-    padding: 20px 30px;
-    margin: 40px 0;
-    background-color: #f8fcfb;
-    border-radius: 0 12px 12px 0;
+    color: #2c2c2c;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
-/* --- Call to Action Final --- */
+/* Imagens no meio do texto */
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 35px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    display: block;
+}
+
+/* Listas */
+.post-content ul, 
+.post-content ol {
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.post-content li {
+    margin-bottom: 10px;
+}
+
+/* Citações */
+.post-content blockquote {
+    border-left: 5px solid var(--primary-color);
+    background-color: #f4f9f8;
+    padding: 25px 30px;
+    margin: 40px 0;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #333;
+    border-radius: 0 10px 10px 0;
+}
+
+/* Links no texto */
+.post-content a {
+    color: #25D366; 
+    text-decoration: underline;
+    text-decoration-color: rgba(37, 211, 102, 0.3);
+    text-underline-offset: 3px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.post-content a:hover {
+    color: #1ebc59;
+    text-decoration-color: #1ebc59;
+}
+
+/* ========================================== */
+/* 5. TABELAS (RESPONSIVAS E ELEGANTES)       */
+/* ========================================== */
+
+.post-content table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0;
+    margin: 35px 0;
+    font-size: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 3px solid #158c40; /* Verde Escuro da Clínica */
+}
+
+.post-content table thead {
+    background-color: #158c40; 
+    color: #ffffff;
+}
+
+.post-content table th {
+    padding: 18px 20px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border-bottom: none; 
+}
+
+.post-content table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    line-height: 1.5;
+    color: #444;
+}
+
+.post-content table tbody tr:last-of-type td {
+    border-bottom: none; 
+}
+
+.post-content table tbody tr:hover td {
+    background-color: #f4f9f8; 
+    transition: background-color 0.2s ease;
+}
+
+/* ========================================== */
+/* 6. BOTÕES INJETADOS PELO JS (PULSANTES)    */
+/* ========================================== */
+
+.cta-artigo {
+    text-align: center;
+    margin: 30px 0;
+    padding: 25px 30px; 
+    background-color: #f4f9f8; 
+    border-radius: 8px;
+}
+
+.cta-artigo p {
+    font-size: 0.95rem; 
+    color: #555;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.btn-agendar-artigo {
+    display: inline-block;
+    background-color: #128C7E; 
+    color: white !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none !important; 
+    box-shadow: 0 4px 15px rgba(18, 140, 126, 0.3);
+    animation: pulsarBotao 2s infinite ease-in-out; 
+    transition: all 0.3s ease; 
+}
+
+.btn-agendar-artigo:hover {
+    background-color: #075E54; 
+    animation: none; 
+    transform: translateY(-2px); 
+    text-decoration: none !important; 
+}
+
+@keyframes pulsarBotao {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); } 
+    100% { transform: scale(1); }
+}
+
+/* ========================================== */
+/* 7. CTA FINAL (INVISTA NA SUA SAÚDE)        */
+/* ========================================== */
+
 .post-cta {
     margin-top: 60px;
     background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
@@ -147,18 +311,26 @@
 .post-cta h3 {
     color: var(--white);
     font-size: 2rem;
+    margin-top: 0;
     margin-bottom: 15px;
 }
 
 .post-cta p {
     font-size: 1.1rem;
-    margin-bottom: 30px;
+    margin-bottom: 25px !important; /* Aproxima o texto do botão */
     color: rgba(255,255,255,0.9);
 }
 
+/* Conserto Cirúrgico do Botão Final */
 .post-cta .btn {
     background-color: var(--white);
     color: var(--secondary-color);
+    display: inline-block !important; 
+    margin: 0 auto !important; /* Centraliza perfeitamente */
+    padding: 15px 30px !important; 
+    line-height: 1.2 !important; 
+    vertical-align: middle !important;
+    transition: all 0.3s ease;
 }
 
 .post-cta .btn:hover {
@@ -167,290 +339,42 @@
 }
 
 /* ========================================== */
-/* BOTÕES DE CONVERSÃO (VISUAL LIMPO E FINAL) */
+/* 8. RESPONSIVIDADE (MODO CELULAR)           */
 /* ========================================== */
 
-.cta-artigo {
-    text-align: center;
-    margin: 30px 0;
-    /* REMOVI O VERDE DA ESQUERDA (border-left) */
-    /* Ajustei o padding para ficar centralizado e bonito sem a borda */
-    padding: 25px 30px; 
-    background-color: #f4f9f8; /* Fundo suave para dar destaque à área */
-    border-radius: 8px;
-}
-
-.cta-artigo p {
-    font-size: 0.95rem; 
-    color: #555;
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
-.btn-agendar-artigo {
-    display: inline-block;
-    background-color: #128C7E; /* Verde Escuro Profissional */
-    color: white !important;
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 12px 28px;
-    border-radius: 50px;
-    
-    /* A PEDIDO: REMOVI O SUBLINHADO TOTALMENTE */
-    text-decoration: none !important; /* O !important garante que não pegue estilos de outros links do artigo */
-    
-    box-shadow: 0 4px 15px rgba(18, 140, 126, 0.3);
-    
-    /* Mantendo a animação pulsar de 2 segundos */
-    animation: pulsarBotao 2s infinite ease-in-out; 
-    transition: all 0.3s ease; /* Transição suave para o hover */
-}
-
-/* Quando o mouse passa por cima */
-.btn-agendar-artigo:hover {
-    background-color: #075E54; /* Verde ainda mais escuro */
-    animation: none; /* Para de pulsar para facilitar o clique */
-    transform: translateY(-2px); /* Dá uma leve subidinha */
-    text-decoration: none !important; /* Garante que não apareça sublinhado no hover */
-}
-
-/* ========================================== */
-/* RECEITA DA ANIMAÇÃO (EFEITO RESPIRAÇÃO)    */
-/* ========================================== */
-@keyframes pulsarBotao {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); } /* Aumento sutil de 3% */
-    100% { transform: scale(1); }
-}
-
-/* ========================================== */
-/* PADRONIZAÇÃO AUTOMÁTICA DO TEXTO (WP)      */
-/* ========================================== */
-
-/* 1. Regra Geral do Texto */
-.post-content {
-    color: #333333; /* Cinza bem escuro, cansa menos a vista que o preto puro */
-    font-size: 1.15rem; /* Letra num tamanho confortável para leitura longa */
-    line-height: 1.8; /* O segredo da legibilidade: bastante espaço entre as linhas */
-}
-
-/* 2. Parágrafos */
-.post-content p {
-    margin-bottom: 25px; /* Respiro generoso entre um parágrafo e outro */
-}
-
-/* 3. Subtítulos que o Helio criar (H2 e H3) */
-.post-content h2 {
-    font-size: 1.8rem;
-    color: #1a1a1a;
-    margin-top: 50px; /* Muito espaço EM CIMA para separar os assuntos */
-    margin-bottom: 20px; /* Pouco espaço EMBAIXO para grudar no texto que o segue */
-    font-weight: 700;
-}
-
-.post-content h3 {
-    font-size: 1.4rem;
-    color: #2c2c2c;
-    margin-top: 40px;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-/* 4. Imagens soltas no meio do texto */
-.post-content img {
-    max-width: 100%; /* Impede que a foto vaze da tela no celular */
-    height: auto;
-    border-radius: 8px; /* Cantos levemente arredondados */
-    margin: 35px 0; /* Espaço em cima e embaixo da foto */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Uma sombra muito elegante e suave */
-    display: block; /* Garante que ela ocupe a linha toda sozinha */
-}
-
-/* 5. Listas com pontinhos ou números (ul, ol) */
-.post-content ul, 
-.post-content ol {
-    margin-bottom: 25px;
-    padding-left: 20px;
-}
-
-.post-content li {
-    margin-bottom: 10px; /* Espaço entre os itens da lista */
-}
-
-/* 6. Citações (Se o Helio usar a ferramenta "Citação/Quote" do WordPress) */
-.post-content blockquote {
-    border-left: 4px solid #25D366; /* A linha lateral com a cor de destaque do site */
-    background-color: #f4f9f8; /* Fundo suave */
-    padding: 20px 25px;
-    margin: 35px 0;
-    font-style: italic;
-    color: #555;
-    border-radius: 0 8px 8px 0;
-}
-
-/* 7. Links no meio do texto */
-.post-content a {
-    color: #25D366; /* O link fica com a cor primária */
-    text-decoration: underline;
-    text-decoration-color: rgba(37, 211, 102, 0.3); /* Um sublinhado mais fraquinho */
-    text-underline-offset: 3px; /* Afasta o sublinhado da palavra */
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.post-content a:hover {
-    color: #1ebc59; /* Escurece um pouco ao passar o mouse */
-    text-decoration-color: #1ebc59;
-}
-
-/* ========================================== */
-/* 8. TABELAS (RESPONSIVAS E ELEGANTES)       */
-/* ========================================== */
-
-.post-content table {
-    width: 100%;
-    /* Mudança técnica: 'separate' + 'spacing: 0' permite usar border-radius E a borda externa */
-    border-collapse: separate; 
-    border-spacing: 0;
-    margin: 35px 0;
-    font-size: 1rem;
-    background-color: #ffffff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05); /* Sombra um pouco mais visível */
-    border-radius: 10px; /* Cantos um pouco mais arredondados */
-    overflow: hidden; /* Garante que o conteúdo das células respeite o arredondamento da tabela */
-
-    /* >>> A BORDA DO TEMA DO HELIO <<< */
-    /* Usando o verde principal #25D366 com uma espessura elegante de 3px */
-    border: 3px solid #158c40; 
-}
-
-/* O Cabeçalho da Tabela */
-.post-content table thead {
-    background-color: #158c40; 
-    color: #ffffff;
-}
-
-/* Células do Header: Tira a borda padrão de baixo para não chocar com a borda externa verde */
-.post-content table th {
-    padding: 18px 20px;
-    text-align: left;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    border-bottom: none; 
-}
-
-/* Células do Corpo (td): Mantém as linhas internas horizontais em cinza suave */
-.post-content table td {
-    padding: 16px 20px;
-    text-align: left;
-    border-bottom: 1px solid #eeeeee;
-    line-height: 1.5;
-    color: #444;
-}
-
-/* Tira a linha debaixo da última fileira para um acabamento perfeito */
-.post-content table tbody tr:last-of-type td {
-    border-bottom: none; 
-}
-
-/* Efeito Hover nas linhas do corpo */
-.post-content table tbody tr:hover td {
-    background-color: #f4f9f8; 
-    transition: background-color 0.2s ease;
-}
-
-/* ========================================== */
-/* A MÁGICA: ROLAGEM APENAS NO CELULAR        */
-/* ========================================== */
 @media (max-width: 768px) {
+    /* Ajustes de Título e Texto */
+    .post-title { font-size: 2.2rem; }
+    .post-content { font-size: 1.05rem; }
+    .post-content .lead { font-size: 1.2rem; }
+    
+    /* Ajuste da Caixa Final */
+    .post-cta { padding: 40px 20px; }
+    .post-cta h3 { font-size: 1.6rem; }
+    
+    /* A Mágica da Tabela (Rolagem lateral) */
     .post-content table {
         display: block; 
         overflow-x: auto; 
-        white-space: nowrap; /* Ativa a rolagem lateral com o dedo APENAS em telas pequenas */
+        white-space: nowrap; 
     }
 }
 
 /* ========================================== */
-/* PENTE FINO: PÁGINA DO ARTIGO               */
+/* 9. ESTILOS DE SUPORTE (LOADING E FOOTER)   */
 /* ========================================== */
 
-/* 1. Evita o pulo do Footer enquanto carrega */
-.post-section {
-    min-height: 100vh; 
-    padding-bottom: 60px;
-}
-
-/* 2. A "Coluna de Leitura" (Trava a largura para não cansar os olhos) */
-.container-sm {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 25px; /* Evita que o texto cole na borda no celular */
-}
-
-/* 3. Imagem de Capa do Artigo */
-.post-cover {
-    margin: 40px auto;
-    max-width: 1000px; /* A foto pode ser um pouco mais larga que o texto para dar destaque */
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-.post-cover img {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    display: block;
-}
-
-/* 4. Tipografia de Leitura Premium (Espaçamentos e Tamanhos) */
-.post-content p {
-    font-size: 1.15rem; /* Letra um pouquinho maior para facilitar a leitura */
-    line-height: 1.8;   /* Espaço generoso entre as linhas */
-    color: #444;        /* Um cinza bem escuro (não preto puro) descansa a vista */
-    margin-bottom: 25px;
-}
-
-.post-content h2 {
-    font-size: 1.8rem;
-    color: var(--secondary-color);
-    margin-top: 50px;
-    margin-bottom: 20px;
-}
-
-/* 5. Citação (Blockquote) elegante */
-.post-content blockquote {
-    border-left: 5px solid var(--primary-color);
-    background-color: #f4f9f8;
-    padding: 25px 30px;
-    margin: 40px 0;
+.loading-text {
+    text-align: center;
+    margin-top: 100px;
     font-size: 1.2rem;
-    font-style: italic;
-    color: #333;
-    border-radius: 0 10px 10px 0;
+    color: var(--primary-color);
 }
 
-/* 6. Listas e Tópicos */
-.post-content ul, .post-content ol {
-    margin-bottom: 30px;
-    padding-left: 20px;
-}
-
-.post-content li {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #444;
-    margin-bottom: 10px;
-}
-
-/* Responsividade do Artigo */
-@media (max-width: 768px) {
-    .post-title { font-size: 2.2rem; }
-    .post-content { font-size: 1.05rem; }
-    .post-content .lead { font-size: 1.2rem; }
-    .post-cta { padding: 40px 20px; }
-    .post-cta h3 { font-size: 1.6rem; }
+.artigo-footer {
+    background-color: var(--secondary-color);
+    padding: 40px 0;
+    text-align: center;
+    color: white;
+    margin-top: 60px; /* Garante que o rodapé não cole no conteúdo */
 }
