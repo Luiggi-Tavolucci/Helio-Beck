@@ -1,83 +1,86 @@
 /* ========================================== */
+/* CONFIGURAÇÃO GLOBAL E SEGURANÇA            */
+/* ========================================== */
+
+const URL_DO_WORDPRESS = 'http://helio-beck-blog.local'; 
+const LINK_WHATSAPP = 'https://wa.me/message/3OIFAKX5ZLDVM1';
+
+function sanitizarHTML(htmlSujo) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlSujo, 'text/html');
+    const scripts = doc.querySelectorAll('script');
+    scripts.forEach(script => script.remove());
+    const todosElementos = doc.querySelectorAll('*');
+    todosElementos.forEach(el => {
+        for (let i = el.attributes.length - 1; i >= 0; i--) {
+            const attr = el.attributes[i];
+            if (attr.name.toLowerCase().startsWith('on')) el.removeAttribute(attr.name);
+        }
+    });
+    return doc.body.innerHTML;
+}
+
+/* ========================================== */
 /* INTEGRAÇÃO HEADLESS CMS - VITRINE (HOME)   */
 /* ========================================== */
 
-// Função assíncrona para buscar os posts no WordPress Local
 async function carregarVitrine() {
-    // A nossa div vazia lá do HTML
     const vitrineGrid = document.querySelector('.vitrine-grid');
-    
-    // Se não estivermos na página inicial (onde tem a vitrine), ele para o código aqui
     if (!vitrineGrid) return;
 
-    // A URL da sua "Cozinha" (WordPress) + o pedido de 3 posts com as imagens embutidas
-    const apiUrl = 'http://helio-beck-blog.local/wp-json/wp/v2/posts?_embed&per_page=3';
+    // RESERVA ESPAÇO PARA O FOOTER NÃO PULAR
+    vitrineGrid.style.minHeight = "500px";
+
+    const apiUrl = `${URL_DO_WORDPRESS}/wp-json/wp/v2/posts?_embed&per_page=3`;
 
     try {
-        // "Bate na porta" da API
         const resposta = await fetch(apiUrl);
         const posts = await resposta.json();
 
-        // Limpa o aviso de "Carregando" (caso a gente coloque um)
         vitrineGrid.innerHTML = '';
 
-        // Para cada post que a API devolveu, nós montamos um Card HTML
         posts.forEach(post => {
-            // 1. Pegar a Imagem (se não tiver, usa uma foto genérica bonita)
             let imageUrl = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
             if (post._embedded && post._embedded['wp:featuredmedia']) {
                 imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
             }
 
-            // 2. Pegar a Categoria (Pega a primeira categoria disponível)
             let categoriaNome = 'Artigo';
             if (post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][0].length > 0) {
                 categoriaNome = post._embedded['wp:term'][0][0].name;
             }
 
-            // 3. Formatar a Data para o padrão Brasileiro
-            const dataPost = new Date(post.date).toLocaleDateString('pt-BR', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            });
-
-            // 4. Limpar o Resumo (Tira as tags HTML que o WordPress manda junto)
-            let resumoSujo = post.excerpt.rendered;
-            let resumoLimpo = resumoSujo.replace(/(<([^>]+)>)/gi, "").substring(0, 160) + '...';
-
-            // 5. O Link Inteligente (Passa a ID do post para a página artigo.html ler depois)
+            const dataPost = new Date(post.date).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+            let resumoLimpo = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").substring(0, 160) + '...';
+            
+            let tituloSanitizado = sanitizarHTML(post.title.rendered);
             const linkDoArtigo = `artigo.html?id=${post.id}`;
 
-            // 6. Montar o "Molde" do Card
             const cardHTML = `
                 <article class="vitrine-card">
                     <div class="vitrine-img">
-                        <img src="${imageUrl}" alt="${post.title.rendered}">
+                        <img src="${imageUrl}" alt="${tituloSanitizado}">
                         <span class="vitrine-cat">${categoriaNome}</span>
                     </div>
                     <div class="vitrine-content">
                         <span class="vitrine-date">${dataPost}</span>
-                        <h3>${post.title.rendered}</h3>
+                        <h3>${tituloSanitizado}</h3>
                         <p>${resumoLimpo}</p>
                         <a href="${linkDoArtigo}" target="_blank" class="vitrine-link">Ler artigo <span class="arrow">→</span></a>
                     </div>
                 </article>
             `;
 
-            // 7. Injeta o card montado dentro da nossa Div lá no HTML
             vitrineGrid.innerHTML += cardHTML;
         });
 
     } catch (erro) {
-        console.error("Ops! Erro ao buscar os posts do WordPress:", erro);
-        vitrineGrid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">Não foi possível carregar os artigos no momento.</p>';
+        console.error("Erro na Vitrine:", erro);
+        vitrineGrid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">Não foi possível carregar os artigos.</p>';
     }
 }
 
-// Manda a função rodar assim que a página carregar
 carregarVitrine();
-
 
 /* ========================================== */
 /* INTEGRAÇÃO HEADLESS CMS - CATÁLOGO (BLOG)  */
@@ -89,28 +92,19 @@ async function carregarBlogCompleto(paginaAtual = 1) {
     
     if (!blogGrid) return;
 
-    // Avisa que está carregando (útil quando clica na página 2)
-    blogGrid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">Carregando artigos...</p>';
-    if(paginacaoContainer) paginacaoContainer.innerHTML = '';
+    // RESERVA ESPAÇO PARA O FOOTER NÃO PULAR
+    blogGrid.style.minHeight = "600px";
+    blogGrid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1; padding-top: 50px;">Carregando biblioteca...</p>';
 
-    // URL agora inclui a página que queremos buscar (&page=...)
-    const apiUrl = `http://helio-beck-blog.local/wp-json/wp/v2/posts?_embed&per_page=9&page=${paginaAtual}`;
+    const apiUrl = `${URL_DO_WORDPRESS}/wp-json/wp/v2/posts?_embed&per_page=9&page=${paginaAtual}`;
 
     try {
         const resposta = await fetch(apiUrl);
-        
-        // Pega o "recibo" do WordPress informando o total de páginas
         const totalPaginas = resposta.headers.get('X-WP-TotalPages');
         const posts = await resposta.json();
 
-        blogGrid.innerHTML = ''; // Limpa o "Carregando..."
+        blogGrid.innerHTML = ''; 
 
-        if (posts.length === 0) {
-            blogGrid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">Nenhum artigo publicado ainda.</p>';
-            return;
-        }
-
-        // --- RENDERIZA OS CARDS (Mesmo código de antes) ---
         posts.forEach(post => {
             let imageUrl = 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
             if (post._embedded && post._embedded['wp:featuredmedia']) imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
@@ -120,17 +114,19 @@ async function carregarBlogCompleto(paginaAtual = 1) {
 
             const dataPost = new Date(post.date).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
             let resumoLimpo = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").substring(0, 160) + '...';
+            
+            let tituloSanitizado = sanitizarHTML(post.title.rendered);
             const linkDoArtigo = `artigo.html?id=${post.id}`;
 
             const cardHTML = `
                 <article class="vitrine-card fade-in">
                     <div class="vitrine-img">
-                        <img src="${imageUrl}" alt="${post.title.rendered}">
+                        <img src="${imageUrl}" alt="${tituloSanitizado}">
                         <span class="vitrine-cat">${categoriaNome}</span>
                     </div>
                     <div class="vitrine-content">
                         <span class="vitrine-date">${dataPost}</span>
-                        <h3>${post.title.rendered}</h3>
+                        <h3>${tituloSanitizado}</h3>
                         <p>${resumoLimpo}</p>
                         <a href="${linkDoArtigo}" target="_blank" class="vitrine-link">Ler artigo <span class="arrow">→</span></a>
                     </div>
@@ -139,43 +135,28 @@ async function carregarBlogCompleto(paginaAtual = 1) {
             blogGrid.innerHTML += cardHTML;
         });
 
-        // --- RENDERIZA A PAGINAÇÃO AUTOMÁTICA ---
         if (paginacaoContainer && totalPaginas > 1) {
             let botoesHTML = '';
             for (let i = 1; i <= totalPaginas; i++) {
-                // Se for a página atual, deixa o botão "ativo" (destacado)
-                if (i === paginaAtual) {
-                    botoesHTML += `<button class="btn-pagina ativo">${i}</button>`;
-                } else {
-                    botoesHTML += `<button class="btn-pagina" onclick="MudarPaginaBlog(${i})">${i}</button>`;
-                }
+                botoesHTML += `<button class="btn-pagina ${i === paginaAtual ? 'ativo' : ''}" onclick="${i === paginaAtual ? '' : `MudarPaginaBlog(${i})`}">${i}</button>`;
             }
             paginacaoContainer.innerHTML = botoesHTML;
         }
 
     } catch (erro) {
-        console.error("Ops! Erro:", erro);
-        blogGrid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1; color: red;">Não foi possível carregar os artigos.</p>';
+        console.error("Erro no Blog:", erro);
+        blogGrid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1; color: red;">Erro ao carregar artigos.</p>';
     }
 }
 
-// Função para quando o usuário clicar em um número de página
 function MudarPaginaBlog(novaPagina) {
-    // 1. Rola a tela suavemente até um pouco acima do catálogo, 
-    // evitando que o menu fixo do topo esconda o título
     const areaDoBlog = document.getElementById('grid-do-blog');
     const posicao = areaDoBlog.getBoundingClientRect().top + window.scrollY - 150; 
-    
-    window.scrollTo({
-        top: posicao,
-        behavior: 'smooth'
-    });
-
-    // 2. Carrega a nova página
+    window.scrollTo({ top: posicao, behavior: 'smooth' });
     carregarBlogCompleto(novaPagina);
 }
 
-
+carregarBlogCompleto();
 
 /* ========================================== */
 /* INTEGRAÇÃO HEADLESS CMS - ARTIGO COMPLETO  */
@@ -183,136 +164,84 @@ function MudarPaginaBlog(novaPagina) {
 
 async function carregarArtigoUnico() {
     const artigoContainer = document.getElementById('artigo-dinamico');
-    
-    // Se não estivermos na página artigo.html, ignora
     if (!artigoContainer) return;
 
-    // 1. O "Detetive": Lê a URL e pega o número do ID (ex: ?id=15)
     const parametrosUrl = new URLSearchParams(window.location.search);
     const postId = parametrosUrl.get('id');
 
-    // Se alguém tentar abrir a página sem nenhum ID na URL
     if (!postId) {
-        artigoContainer.innerHTML = '<p style="text-align:center; margin-top: 100px;">Artigo não encontrado. <a href="blog.html" style="color: var(--primary-color);">Voltar para o blog</a>.</p>';
+        artigoContainer.innerHTML = '<p style="text-align:center; margin-top: 100px;">Artigo não encontrado.</p>';
         return;
     }
 
-    // 2. A URL para buscar apenas ESTE post específico
-    const apiUrl = `http://helio-beck-blog.local/wp-json/wp/v2/posts/${postId}?_embed`;
+    const apiUrl = `${URL_DO_WORDPRESS}/wp-json/wp/v2/posts/${postId}?_embed`;
 
     try {
         const resposta = await fetch(apiUrl);
-        if (!resposta.ok) throw new Error('Post não encontrado no banco de dados');
-        
         const post = await resposta.json();
 
-        // 3. Pegar a Imagem (Se existir)
+        document.title = `${sanitizarHTML(post.title.rendered)} | Helio Beck`;
+
         let imageUrl = '';
-        if (post._embedded && post._embedded['wp:featuredmedia']) {
-            imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
-        }
+        if (post._embedded && post._embedded['wp:featuredmedia']) imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
 
-        // 4. Pegar a Categoria
         let categoriaNome = 'Artigo';
-        if (post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][0].length > 0) {
-            categoriaNome = post._embedded['wp:term'][0][0].name;
-        }
+        if (post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][0].length > 0) categoriaNome = post._embedded['wp:term'][0][0].name;
 
-        // 5. Data Formatada
-        const dataPost = new Date(post.date).toLocaleDateString('pt-BR', {
-            day: 'numeric', month: 'long', year: 'numeric'
-        });
+        const dataPost = new Date(post.date).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
-        // ========================================================
-        // 6. MÁGICA DOS BOTÕES AUTOMÁTICOS DO WHATSAPP
-        // ========================================================
-        const textoOriginal = post.content.rendered;
-        
-        // Separa o texto em blocos usando o fechamento de parágrafo
-        const paragrafosBrutos = textoOriginal.split('</p>');
-        // Filtra para remover pedaços em branco e evitar bugs na contagem
+        const textoOriginalSeguro = sanitizarHTML(post.content.rendered);
+        const paragrafosBrutos = textoOriginalSeguro.split('</p>');
         const paragrafos = paragrafosBrutos.filter(p => p.trim() !== '');
-        
-        // ---> TROQUE O NÚMERO AQUI <---
-        const linkWhats = "https://wa.me/message/3OIFAKX5ZLDVM1?text=Olá! Estava lendo o artigo no blog e gostaria de agendar uma consulta.";
         
         const botaoHTML = `
             <div class="cta-artigo">
                 <p>Gostaria de uma avaliação personalizada com o Helio?</p>
-                <a href="https://wa.me/message/3OIFAKX5ZLDVM1" target="_blank" class="btn-agendar-artigo">
+                <a href="${LINK_WHATSAPP}?text=Olá! Estava lendo o artigo no blog e gostaria de agendar uma consulta." target="_blank" class="btn-agendar-artigo">
                     Agendar Minha Consulta pelo WhatsApp
                 </a>
             </div>
         `;
 
         let textoComBotoes = "";
-
-        // Calcula os pontos exatos de 1/3 e 2/3 do texto
         let terco1 = Math.floor(paragrafos.length / 3);
         let terco2 = Math.floor((paragrafos.length * 2) / 3);
 
-        // Monta o texto injetando os botões de forma proporcional
         for (let i = 0; i < paragrafos.length; i++) {
             textoComBotoes += paragrafos[i] + '</p>';
-            
-            // Só espalha dois botões se o texto tiver pelo menos 4 parágrafos
             if (paragrafos.length >= 4) {
-                // Injeta no exato momento que atingir o primeiro e o segundo terço
-                if (i === terco1 || i === terco2) {
-                    textoComBotoes += botaoHTML;
-                }
-            } 
-            // Se o texto for curtinho (2 ou 3 parágrafos), bota só um botão no meio
-            else if (paragrafos.length > 1) {
-                let meio = Math.floor(paragrafos.length / 2);
-                if (i === meio) {
-                    textoComBotoes += botaoHTML;
-                }
+                if (i === terco1 || i === terco2) textoComBotoes += botaoHTML;
+            } else if (paragrafos.length > 1) {
+                if (i === Math.floor(paragrafos.length / 2)) textoComBotoes += botaoHTML;
             }
         }
-        // ========================================================
 
-        // 7. Montar a página usando a sua estrutura oficial
         const conteudoHTML = `
             <div class="post-header container-sm">
                 <span class="post-tag">${categoriaNome}</span>
-                <h1 class="post-title">${post.title.rendered}</h1>
-                
+                <h1 class="post-title">${sanitizarHTML(post.title.rendered)}</h1>
                 <div class="post-meta">
                     <div class="author-info">
                         <img src="IMG/WhatsApp Image 2026-03-05 at 21.30.49.jpeg" alt="Helio Beck" class="author-avatar">
-                        <div>
-                            <strong>Helio Beck</strong>
-                            <span>${dataPost}</span>
-                        </div>
+                        <div><strong>Helio Beck</strong><span>${dataPost}</span></div>
                     </div>
                 </div>
             </div>
-
-            ${imageUrl ? `
-            <div class="post-cover container">
-                <img src="${imageUrl}" alt="Capa do artigo">
-            </div>` : ''}
-
-            <article class="post-content container-sm">
-                ${textoComBotoes}
-            </article>
-
+            ${imageUrl ? `<div class="post-cover container"><img src="${imageUrl}" alt="Capa"></div>` : ''}
+            <article class="post-content container-sm">${textoComBotoes}</article>
             <div class="post-cta container-sm">
                 <h3>Invista na sua saúde</h3>
-                <p>Agende agora mesmo sua consulta com Helio Beck e descubra como a Medicina do Estilo de Vida pode transformar sua vida.</p>
-                <a href="https://wa.me/message/3OIFAKX5ZLDVM1" target="_blank" class="btn">Agendar Minha Consulta</a>
+                <p>Agende agora mesmo sua consulta com Helio Beck.</p>
+                <a href="${LINK_WHATSAPP}" target="_blank" class="btn">Agendar Minha Consulta</a>
             </div>
         `;
 
-        // 8. Injeta tudo na tela
         artigoContainer.innerHTML = conteudoHTML;
 
     } catch (erro) {
-        console.error("Erro ao carregar o artigo:", erro);
-        artigoContainer.innerHTML = '<p style="text-align:center; margin-top: 100px; color: red;">Não foi possível carregar o artigo. Verifique a conexão com o banco de dados.</p>';
+        console.error("Erro no Artigo:", erro);
+        artigoContainer.innerHTML = '<p style="text-align:center; color: red;">Erro ao carregar conteúdo.</p>';
     }
 }
 
-// Inicia a função do artigo
 carregarArtigoUnico();
