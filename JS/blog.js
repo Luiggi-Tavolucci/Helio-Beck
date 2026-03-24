@@ -2,7 +2,7 @@
 /* CONFIGURAÇÃO GLOBAL E SEGURANÇA            */
 /* ========================================== */
 
-const URL_DO_WORDPRESS = 'http://helio-beck-blog.local'; 
+const URL_DO_WORDPRESS = 'https://painel.heliobeck.com.br'; 
 const LINK_WHATSAPP = 'https://wa.me/message/3OIFAKX5ZLDVM1';
 
 function sanitizarHTML(htmlSujo) {
