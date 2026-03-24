@@ -2,31 +2,53 @@
 /* HELIO BECK - SCRIPT GLOBAL PRINCIPAL       */
 /* ========================================== */
 
-// Só executa a mágica depois que o HTML estiver 100% carregado na tela
 document.addEventListener('DOMContentLoaded', () => {
     
     /* ========================================== */
-    /* 1. MENU MOBILE (HAMBÚRGUER)                */
+    /* 1. MENU MOBILE (HAMBÚRGUER PREMIUM)        */
     /* ========================================== */
-    const mobileMenu = document.querySelector('.menu-toggle');
+    const mobileBtn = document.querySelector('.menu-toggle');
     const navList = document.querySelector('.nav-links');
+    const navLinks = document.querySelectorAll('.nav-links li a');
 
-    if (mobileMenu && navList) {
-        // Abre/Fecha o menu ao clicar no ícone
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            mobileMenu.classList.toggle('toggle'); // Prepara para animação do "X" se você criar no CSS
-        });
+    // Função central para abrir/fechar e trocar o ícone
+    function toggleMenu() {
+        if (!navList) return;
+        const isActive = navList.classList.toggle('active');
 
-        // Fecha o menu automaticamente ao clicar em qualquer link (Melhor UX)
-        const navLinks = document.querySelectorAll('.nav-links a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navList.classList.remove('active');
-                mobileMenu.classList.remove('toggle');
-            });
+        // Troca o texto de ☰ para ✕
+        if (mobileBtn) {
+            if (isActive) {
+                mobileBtn.textContent = '✕'; 
+            } else {
+                mobileBtn.textContent = '☰'; 
+            }
+        }
+    }
+
+    // Clique no botão Hambúrguer
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
         });
     }
+
+    // Fecha o menu automaticamente ao clicar em qualquer link
+    navLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+            if (navList.classList.contains('active')) toggleMenu();
+        });
+    });
+
+    // Fecha o menu se o usuário clicar no espaço vazio da tela
+    document.addEventListener('click', (e) => {
+        if (navList && navList.classList.contains('active') && 
+            !navList.contains(e.target) && 
+            !mobileBtn.contains(e.target)) {
+            toggleMenu();
+        }
+    });
 
     /* ========================================== */
     /* 2. CONTROLADOR DE ROLAGEM (TRUQUE NINJA)   */

@@ -1622,88 +1622,222 @@ footer {
     100% { transform: translateY(0); }
 }
 
-/* ==================================================
-   RESPONSIVIDADE (MEDIA QUERIES CENTRALIZADAS)
-================================================== */
+/* ==========================================================================
+   1. TRAVA GLOBAL E CABEÇALHO FIXO (STICKY)
+   Objetivo: Impedir rolagem lateral e manter o menu sempre visível.
+========================================================================== */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; 
+    position: relative;
+}
 
-/* --- TABLETS E TELAS MENORES (Até 992px) --- */
-@media (max-width: 992px) {
-    /* Sobre Mim */
-    .sobre-container { flex-direction: column; gap: 40px; }
-    .sobre-image { text-align: center; }
-    .pilares-grid { grid-template-columns: 1fr; }
+header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1002; 
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+    transition: all 0.3s ease;
+}
+
+body {
+    padding-top: 90px; /* Impede que o site fique escondido atrás do header */
+}
+
+/* ==========================================================================
+   2. AJUSTE FINO DO HERO (CENTRO ÓTICO ABSOLUTO)
+   Objetivo: Garantir que o texto fique centralizado, mas um pouco mais alto.
+========================================================================== */
+.hero {
+    min-height: calc(100vh - 90px); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 15px;
+    box-sizing: border-box;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    gap: 20px; 
+    margin-top: -60px; /* O SEGREDO: Puxa o conteúdo sutilmente para cima */
+}
+
+/* ==========================================================================
+   3. LAPTOPS E TELAS MÉDIAS (Até 1280px)
+   Objetivo: Dar um respiro lateral elegante.
+========================================================================== */
+@media (max-width: 1280px) {
+    section { padding: 80px 5%; } 
     
-    /* Tecnologia */
-    .tech-content { flex-direction: column; }
+    .sobre-image img, .tech-image-wrapper img {
+        max-width: 90%;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+/* ==========================================================================
+   4. TABLETS E IPADS (Até 1024px)
+   Objetivo: Quebrar colunas e alinhar os cards irmãos.
+========================================================================== */
+@media (max-width: 1024px) {
+    section { padding: 60px 5%; }
+    
+    /* Sobre Mim e Tecnologia */
+    .sobre-container { flex-direction: column; gap: 50px; text-align: center; }
+    .sobre-image { order: -1; } 
+    .pilares-grid { grid-template-columns: 1fr; text-align: left; }
+    .tech-content { flex-direction: column; text-align: center; gap: 40px; }
     .tech-image-wrapper { width: 100%; max-width: 500px; margin: 0 auto; }
+    .tech-benefits-list { text-align: left; }
     
-    /* Cards Secundários (Ultrassom e Ebook) */
-    .cards-secundarios-grid { grid-template-columns: 1fr; gap: 20px; }
+    /* CARDS SECUNDÁRIOS: Agora 100% alinhados */
+    .cards-secundarios-grid { grid-template-columns: 1fr; gap: 30px; }
+    
     .card-ebook-destaque { flex-direction: column; text-align: center; padding: 40px 20px; }
     .ebook-info { align-items: center; }
     .tag-gratis-reversa { align-self: center; }
-}
 
-/* --- MOBILE GERAL (Até 768px) --- */
-@media (max-width: 768px) {
-    /* Header e Nav (Menu Hambúrguer) */
-    .hero-content h1 { font-size: 2.5rem; }
-    
-    .menu-toggle {
-        display: block;
-        cursor: pointer;
-        font-size: 1.8rem;
-        color: var(--secondary-color);
-    }
-    
-    .nav-links {
-        position: absolute;
-        top: 100px;
-        right: 0;
-        height: calc(100vh - 100px);
-        background-color: var(--white);
+    /* Novo: Card do Ultrassom tratado igual ao E-book */
+    .card-ultrassom {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        width: 70%;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        text-align: center;
+        padding: 40px 20px;
     }
     
-    .nav-links li { margin: 20px 0; opacity: 0; }
-    .nav-links.active { transform: translateX(0%); }
-    .nav-links.active li { opacity: 1; transition: opacity 0.5s ease 0.2s; }
-
-    /* Grids e Espaçamentos */
-    .pillars-grid { grid-template-columns: 1fr 1fr; }
-    .mentorship-details { grid-template-columns: 1fr; }
-    .faq-grid { grid-template-columns: 1fr; }
-    
-    /* Tabela Comparativa */
-    .comparison-wrapper { padding: 20px; margin-top: 50px; }
-    .comparison-header h3 { font-size: 1.5rem; }
-    
-    /* Mentoria Checkout */
-    .checkout-box { padding: 40px 20px; }
-    .price-display { font-size: 3.5rem; }
-    
-    /* Banner Instagram */
-    .instagram-card { flex-direction: column; text-align: center; padding: 35px 20px; }
-    .insta-icon { margin-bottom: 10px; }
-    .insta-action { width: 100%; margin-top: 15px; }
-    .btn-insta { width: 100%; display: block; }
-    
-    /* Footer */
-    .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-    .brand-col, .contact-col { text-align: center; }
-    .brand-mission { margin: 0 auto 25px auto; }
-    .bottom-container { flex-direction: column; gap: 15px; }
-    .legal-links a { margin: 0 10px; }
+    .card-ultrassom-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+    }
 }
 
-/* --- MOBILE PEQUENO (Até 500px) --- */
-@media (max-width: 500px) {
+/* ==========================================================================
+   5. MOBILE GERAL E MENU FLUTUANTE (Até 768px)
+   Objetivo: Ativar o Card Premium do Arthur Alvarenga.
+========================================================================== */
+@media (max-width: 768px) {
+    /* --- O Botão Hambúrguer --- */
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 2rem;
+        font-weight: 300; 
+        color: var(--primary-color);
+        z-index: 1001;
+    }
+
+    /* --- A Caixa do Menu Premium --- */
+    .nav-links {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%; 
+        left: 5%; 
+        width: 90%; 
+        background-color: var(--white);
+        padding: 30px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
+        gap: 25px;
+        text-align: center;
+        border-radius: 0 0 20px 20px; 
+        border-top: 1px solid #eee;
+        height: auto;
+        transform: none; 
+        transition: none;
+        z-index: 1000;
+    }
+    
+    .nav-links.active { 
+        display: flex; 
+        animation: slideDownMenu 0.3s ease forwards; 
+    }
+
+    /* --- Estrutura Geral caindo para menos colunas --- */
+    .hero-content h1 { font-size: 2.8rem; }
+    .journey-grid { grid-template-columns: 1fr 1fr; }
+    .pillars-grid { grid-template-columns: 1fr 1fr; }
+    .mentorship-details { grid-template-columns: 1fr; gap: 30px; }
+    .path-grid { grid-template-columns: 1fr; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+    .vitrine-grid { grid-template-columns: 1fr; }
+    
+    /* Instagram e Footer */
+    .instagram-card { flex-direction: column; text-align: center; padding: 35px 20px; }
+    .insta-action { margin-top: 20px; width: 100%; }
+    .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+    .brand-mission { margin: 0 auto 20px auto; }
+    .bottom-container { flex-direction: column; gap: 15px; text-align: center; }
+}
+
+/* ==========================================================================
+   6. A "UTI" PARA CELULARES PADRÃO (Até 480px)
+   Objetivo: Garantir toques fáceis sem esmagar o layout.
+========================================================================== */
+@media (max-width: 480px) {
+    /* Mantém a trava de vazamento suave */
+    section { overflow: hidden; } 
+
+    /* Redução fina de fontes */
+    .hero-content h1 { font-size: 2.2rem !important; }
+    h2 { font-size: 1.8rem !important; }
+    .price-display { font-size: 2.5rem !important; }
+    .checkout-box { padding: 30px 15px; }
+
+    /* Grids caindo para 1 coluna absoluta */
+    .journey-grid { grid-template-columns: 1fr; }
     .pillars-grid { grid-template-columns: 1fr; }
+    
+    /* Botões Largura Total para clique perfeito no mobile */
+    .btn, .btn-primary, .btn-zap, .btn-teal, .nav-btn, .pricing-btn, .checkout-btn, .btn-insta { 
+        width: 100%; 
+        display: flex;
+        justify-content: center; 
+        box-sizing: border-box;
+    }
+}
+
+/* ==========================================================================
+   7. A "SUPER UTI" (Abaixo de 380px)
+   Objetivo: Proteger o Cabeçalho em telas minúsculas.
+========================================================================== */
+@media (max-width: 380px) {
+    .nav-container {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important; 
+    }
+
+    .logo-img {
+        max-width: 130px !important; 
+        height: auto !important;
+    }
+
+    .menu-toggle {
+        font-size: 1.8rem !important; 
+        margin-left: 10px !important; 
+    }
+}
+
+/* ==========================================================================
+   8. ANIMAÇÕES GLOBAIS
+========================================================================== */
+@keyframes slideDownMenu {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
