@@ -222,7 +222,7 @@ async function carregarArtigoUnico() {
                 <h1 class="post-title">${sanitizarHTML(post.title.rendered)}</h1>
                 <div class="post-meta">
                     <div class="author-info">
-                        <img src="IMG/WhatsApp Image 2026-03-05 at 21.30.49.jpeg" alt="Helio Beck" class="author-avatar">
+                        <img src="IMG/Helio_avatar.jpeg" alt="Helio Beck" class="author-avatar">
                         <div><strong>Helio Beck</strong><span>${dataPost}</span></div>
                     </div>
                 </div>
