@@ -64,7 +64,11 @@ async function carregarVitrine() {
                     </div>
                     <div class="vitrine-content">
                         <span class="vitrine-date">${dataPost}</span>
-                        <h3>${tituloSanitizado}</h3>
+                        
+                        <a href="${linkDoArtigo}" target="_blank" class="link-titulo-artigo">
+                            <h3>${tituloSanitizado}</h3>
+                        </a>
+
                         <p>${resumoLimpo}</p>
                         <a href="${linkDoArtigo}" target="_blank" class="vitrine-link">Ler artigo <span class="arrow">→</span></a>
                     </div>
@@ -126,7 +130,11 @@ async function carregarBlogCompleto(paginaAtual = 1) {
                     </div>
                     <div class="vitrine-content">
                         <span class="vitrine-date">${dataPost}</span>
-                        <h3>${tituloSanitizado}</h3>
+                        
+                        <a href="${linkDoArtigo}" target="_blank" class="link-titulo-artigo">
+                            <h3>${tituloSanitizado}</h3>
+                        </a>
+
                         <p>${resumoLimpo}</p>
                         <a href="${linkDoArtigo}" target="_blank" class="vitrine-link">Ler artigo <span class="arrow">→</span></a>
                     </div>
