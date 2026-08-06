@@ -68,7 +68,7 @@ async function carregarCatalogoProdutos() {
                 <article class="vitrine-card fade-in">
                     <div class="vitrine-img">
                         <img src="${imageUrl}" alt="${tituloSanitizado}">
-                        <span class="vitrine-cat">Programa</span>
+                        <span class="vitrine-cat">Produto</span>
                     </div>
                     <div class="vitrine-content">
                         <h3>${tituloSanitizado}</h3>

@@ -103,3 +103,128 @@
     .post-title { font-size: 1.5rem; }
     .post-content, .wp-content-injetado { padding: 20px 12px; }
 }
+
+/* ========================================== */
+/* CARTÃO DE OFERTA COM CRONÔMETRO (BLINDADO) */
+/* ========================================== */
+
+.oferta-card {
+    background-color: #172d22 !important; 
+    color: #ffffff !important;
+    border-radius: 24px !important;
+    padding: 40px 30px !important;
+    text-align: center !important;
+    max-width: 500px !important;
+    margin: 60px auto !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2) !important;
+    font-family: inherit !important;
+}
+
+.oferta-card .oferta-titulo {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 20px !important;
+    line-height: 1.2 !important;
+    color: #ffffff !important;
+}
+
+.oferta-card .oferta-desc {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    color: #d1d5db !important;
+    margin-bottom: 20px !important;
+}
+
+.oferta-card .oferta-energia {
+    font-size: 1.1rem !important;
+    margin-bottom: 20px !important;
+    color: #ffffff !important;
+}
+
+.oferta-card .preco-antigo {
+    display: block !important;
+    font-size: 1rem !important;
+    color: #6b7280 !important;
+    text-decoration: line-through !important;
+    margin-bottom: 5px !important;
+}
+
+.oferta-card .preco-novo {
+    display: block !important;
+    font-size: 2.2rem !important;
+    font-weight: 700 !important;
+    color: #1ed786 !important;
+    margin-bottom: 30px !important;
+}
+
+.oferta-card .oferta-urgencia {
+    color: #1ed786 !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 20px !important;
+}
+
+/* Estrutura do Cronômetro */
+.oferta-card .cronometro {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    margin-bottom: 30px !important;
+}
+
+.oferta-card .tempo-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.oferta-card .tempo-box span {
+    background-color: #1ed786 !important;
+    color: #ffffff !important;
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+    min-width: 60px !important;
+    box-sizing: border-box !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.oferta-card .tempo-box small {
+    margin-top: 8px !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    color: #ffffff !important;
+}
+
+/* Botão final (Pílula) */
+.oferta-card .btn-oferta {
+    display: inline-block !important;
+    background-color: #1ed786 !important;
+    color: #172d22 !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+    padding: 20px 20px !important;
+    border-radius: 50px !important;
+    text-decoration: none !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    box-sizing: border-box !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.oferta-card .btn-oferta:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 25px rgba(30, 215, 134, 0.4) !important;
+}
+
+/* Responsividade do Card */
+@media (max-width: 480px) {
+    .oferta-card { padding: 30px 20px !important; }
+    .oferta-card .oferta-titulo { font-size: 1.6rem !important; }
+    .oferta-card .tempo-box span { font-size: 1.4rem !important; padding: 10px !important; min-width: 50px !important; }
+    .oferta-card .cronometro { gap: 8px !important; }
+}
