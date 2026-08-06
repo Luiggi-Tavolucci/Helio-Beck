@@ -86,7 +86,7 @@ function processarConteudoWP(htmlBruto, linkDeVendas) {
                 
                 divBotao.innerHTML = `
                     <a href="${linkDeVendas}" target="_blank" class="btn" style="padding: 16px 35px; font-size: 1.1rem; width: 100%; max-width: 380px;">
-                        Quero Garantir Meu Acesso
+                        Compre agora!
                     </a>
                 `;
                 p.parentNode.insertBefore(divBotao, p.nextSibling);
@@ -172,8 +172,8 @@ async function carregarProdutoUnico() {
         let ofertaTitulo = "Pronto para começar sua transformação?";
         let ofertaDesc = `Adquira o <b>${tituloProduto}</b> e sinta a diferença no seu corpo. Mude seus hábitos e alcance seus resultados.`;
         let ofertaDestaque = "Aproveite esta oportunidade! ✨";
-        let precoAntigo = "De R$ 197";
-        let precoNovo = "Por apenas R$ 97";
+        let precoAntigo = "De R$ 67";
+        let precoNovo = "Por apenas R$ 37";
         let textoUrgencia = "VAMOS APROVEITAR ANTES DA PROMOÇÃO ACABAR!";
         let textoBotao = "Sim, quero garantir meu acesso!";
 
