@@ -1,0 +1,105 @@
+/* ========================================== */
+/* ESTILIZAÇÃO DA PÁGINA DE DETALHES / ARTIGO */
+/* ========================================== */
+
+.post-section { padding: 140px 0 100px 0; background-color: var(--light-bg); min-height: 80vh; }
+.container-sm { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+.post-header { text-align: center; margin-bottom: 40px; }
+.post-tag { display: inline-block; background: var(--primary-color); color: var(--white); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+.post-title { font-size: 2.8rem; color: var(--secondary-color); line-height: 1.3; margin-bottom: 20px; }
+.post-cover { max-width: 900px; margin: 0 auto 50px auto; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+.post-cover img { width: 100%; height: auto; max-height: 450px; object-fit: cover; display: block; }
+.post-content, .wp-content-injetado { background: var(--white); padding: 50px; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); color: #444; font-size: 1.05rem; line-height: 1.8; margin-bottom: 50px; }
+.post-content h2, .wp-content-injetado h2, .post-content h3, .wp-content-injetado h3 { color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px; }
+.wp-responsivo figure, .wp-responsivo p { margin: 0 0 20px 0 !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
+
+/* Botões */
+.btn { display: inline-flex; justify-content: center; align-items: center; background-color: var(--primary-color); color: var(--white); padding: 16px 32px; border-radius: 8px; font-weight: 700; font-size: 1.05rem; text-transform: uppercase; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(11, 79, 72, 0.2); }
+.btn:hover { background-color: var(--secondary-color); transform: translateY(-2px); box-shadow: 0 12px 25px rgba(11, 79, 72, 0.3); }
+
+/* Rodapé */
+.artigo-footer { width: 100%; text-align: center; padding: 40px 20px; background-color: var(--white); border-top: 1px solid rgba(0, 0, 0, 0.05); }
+.artigo-footer p { color: #666; font-size: 0.95rem; margin: 0 auto; }
+
+/* ========================================== */
+/* A SOLUÇÃO DA GRADE (A IDEIA DO USUÁRIO)    */
+/* ========================================== */
+
+/* A estrutura da grade mestra - Inquebrável */
+.grade-padrao-wp {
+    display: grid !important;
+    place-items: center !important; /* Centraliza tudo perfeitamente */
+    width: 100% !important;
+    margin: 40px auto !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
+
+/* Configuração específica da grade para vídeos nativos (.mp4) */
+.grade-video {
+    height: 500px !important; /* Altura cravada e fixa no PC */
+    background-color: #000 !important; /* Fundo preto estilo cinema */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+/* Configuração para o YouTube (proporção 16:9 cravada) */
+.grade-youtube {
+    position: relative !important;
+    aspect-ratio: 16 / 9 !important;
+    background-color: #000 !important;
+}
+
+/* Configuração da grade para imagens */
+.grade-img {
+    height: auto !important;
+    max-height: 500px !important;
+    background-color: transparent !important;
+}
+
+/* 
+   REGRA DE OURO: O que está dentro da Grade!
+   Ele é obrigado a preencher 100% da altura e largura DA GRADE, 
+   usando object-fit: contain para JAMAIS espremer.
+*/
+.grade-padrao-wp video,
+.grade-padrao-wp img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important; /* Proibido achatar */
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.iframe-perfeito {
+    position: absolute !important;
+    top: 0 !important; left: 0 !important;
+    width: 100% !important; height: 100% !important;
+    border: none !important;
+}
+
+/* ========================================== */
+/* RESPONSIVIDADE AVANÇADA PARA CELULARES     */
+/* ========================================== */
+
+@media (max-width: 768px) {
+    .post-section { padding: 100px 0 60px 0; }
+    .container-sm { padding: 0 15px; }
+    .post-title { font-size: 1.8rem; line-height: 1.3; margin-bottom: 15px; }
+    .post-cover img { max-height: 260px; }
+    .post-content, .wp-content-injetado { padding: 25px 15px; font-size: 0.95rem; margin-bottom: 30px; }
+    
+    /* No celular, a grade do vídeo se adapta para ocupar 60% da tela (sem estourar) */
+    .grade-video {
+        height: 60vh !important;
+        max-height: 500px !important;
+    }
+
+    .cta-produto-container .btn { width: 100% !important; padding: 14px 20px !important; font-size: 1rem !important; }
+}
+
+@media (max-width: 480px) {
+    .post-title { font-size: 1.5rem; }
+    .post-content, .wp-content-injetado { padding: 20px 12px; }
+}

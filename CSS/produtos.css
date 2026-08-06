@@ -1,0 +1,176 @@
+/* ========================================== */
+/* PÁGINA DO BLOG (CATÁLOGO)                  */
+/* ========================================== */
+
+/* --- Elementos de Navegação --- */
+.nav-item-active {
+    color: var(--primary-color) !important;
+    font-weight: 700;
+}
+
+/* --- Hero Section (Ajustado com o HTML limpo) --- */
+.blog-hero-section {
+    background-color: var(--light-bg);
+    padding: 160px 0 80px 0; 
+    text-align: center;
+}
+
+.blog-hero-section h1 {
+    color: var(--secondary-color);
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.blog-hero-section p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- Área de Listagem (Grid dos Produtos) --- */
+.vitrine-section {
+    padding-top: 60px;
+    padding-bottom: 120px;
+    min-height: 50vh;
+    background-color: var(--white);
+}
+
+.produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
+    gap: 30px;
+    justify-content: center; /* Centraliza os cards caso tenha poucos na tela */
+}
+
+/* --- O Card do Produto --- */
+.vitrine-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.vitrine-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(11, 79, 72, 0.1);
+}
+
+/* --- Imagem e Tag --- */
+.vitrine-img {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+}
+
+.vitrine-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.vitrine-card:hover .vitrine-img img {
+    transform: scale(1.05);
+}
+
+.vitrine-cat {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* --- Conteúdo e Textos --- */
+.vitrine-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.vitrine-content h3 {
+    font-size: 1.25rem;
+    color: var(--secondary-color);
+    margin-bottom: 12px;
+    line-height: 1.4;
+    transition: color 0.3s;
+    text-align: center;
+}
+
+.vitrine-card:hover .vitrine-content h3 {
+    color: var(--primary-color);
+}
+
+.vitrine-content p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* --- Botão de Conversão (Saber Mais) --- */
+.btn-outline-teal {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    background-color: transparent;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: auto;
+}
+
+.btn-outline-teal:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 8px 20px rgba(11, 79, 72, 0.2);
+}
+
+/* ========================================== */
+/* RODAPÉ DO BLOG (EXTRAÍDO DO HTML)          */
+/* ========================================== */
+.blog-footer {
+    background-color: var(--secondary-color);
+    padding: 40px 0;
+    text-align: center;
+    color: white;
+}
+
+/* --- RESPONSIVIDADE DO BLOG --- */
+@media (max-width: 768px) {
+    .blog-hero-section {
+        padding: 150px 20px 60px 20px;
+    }
+    
+    .blog-hero-section h1 {
+        font-size: 2.2rem;
+    }
+    
+    .blog-catalog {
+        padding: 60px 0;
+    }
+}

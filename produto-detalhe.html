@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto | Helio Beck</title>
+    <link rel="icon" type="image/png" href="IMG/Fav_icon.png">
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KG3M6DQT');</script>
+    <!-- End Google Tag Manager -->
+
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- Você pode usar o CSS de artigo ou criar um específico de produto herdando as mesmas classes -->
+    <link rel="stylesheet" href="CSS/artigo.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KG3M6DQT" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <main class="post-section">
+
+        <!-- Gaveta idêntica à do artigo, onde o JS vai injetar o produto completo -->
+        <div id="produto-dinamico">
+            <p class="loading-text" style="text-align: center; margin-top: 100px;">Carregando informações do produto...</p>
+        </div>
+
+    </main>
+
+    <footer class="artigo-footer">
+        <p>&copy; 2026 Helio Beck. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/produto-detalhe.js"></script>
+</body>
+
+</html>

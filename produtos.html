@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programas e Produtos | Helio Beck Nutrição</title>
+    <link rel="icon" type="image/png" href="IMG/Fav_icon.png">
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KG3M6DQT');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Importação dos CSS -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/produtos.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KG3M6DQT" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Cabeçalho / Navegação -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="IMG/Logo_Helio.jpeg" alt="Helio Beck Nutrição" class="logo-img">
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#sobre">Sobre</a></li>
+                    <li><a href="index.html#pacotes">Pacotes</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="produtos.html" class="nav-item-active">Produtos</a></li>
+                    <li><a href="https://wa.me/message/3OIFAKX5ZLDVM1" target="_blank" class="nav-btn">Agendar</a></li>
+                </ul>
+            </nav>
+
+            <div class="menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <!-- Seção de Título (Hero) -->
+    <section class="blog-hero-section">
+        <div class="container">
+            <h1>Programas e Produtos</h1>
+            <p>
+                Acelere seus resultados com os guias, e-books e protocolos exclusivos desenvolvidos para otimizar sua saúde.
+            </p>
+        </div>
+    </section>
+
+    <!-- Seção Principal da Vitrine -->
+    <main class="vitrine-section">
+        <div class="container">
+            <!-- AQUI É A GAVETA ONDE O JAVASCRIPT VAI INJETAR OS CARDS -->
+            <div class="vitrine-grid produtos-grid" id="grid-dos-produtos">
+                <p style="text-align: center; width: 100%; padding: 50px 0;">Carregando catálogo de produtos...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="blog-footer">
+        <p>&copy; 2026 Helio Beck. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Importação dos Scripts (A Ordem Importa!) -->
+    <script src="JS/script.js"></script>
+    <script src="JS/produtos.js"></script>
+</body>
+
+</html>
