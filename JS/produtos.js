@@ -67,11 +67,19 @@ async function carregarCatalogoProdutos() {
             const cardHTML = `
                 <article class="vitrine-card fade-in">
                     <div class="vitrine-img">
-                        <img src="${imageUrl}" alt="${tituloSanitizado}">
+                        <!-- IMAGEM CLICÁVEL -->
+                        <a href="${linkDoProduto}">
+                            <img src="${imageUrl}" alt="${tituloSanitizado}">
+                        </a>
                         <span class="vitrine-cat">Produto</span>
                     </div>
                     <div class="vitrine-content">
-                        <h3>${tituloSanitizado}</h3>
+                        <!-- TÍTULO CLICÁVEL -->
+                        <h3>
+                            <a href="${linkDoProduto}" style="text-decoration: none; color: inherit; transition: color 0.3s;" onmouseover="this.style.color='#128C7E'" onmouseout="this.style.color='inherit'">
+                                ${tituloSanitizado}
+                            </a>
+                        </h3>
                         <p>${resumoLimpo}</p>
                         <a href="${linkDoProduto}" class="btn-outline-teal">
                             Saber Mais

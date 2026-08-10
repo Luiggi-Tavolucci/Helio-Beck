@@ -84,8 +84,10 @@ function processarConteudoWP(htmlBruto, linkDeVendas) {
                 divBotao.className = 'cta-produto-container';
                 divBotao.style.cssText = "text-align: center; margin: 50px auto; padding: 15px 0;";
                 
+                // MUDANÇA AQUI: Trocamos a classe para .btn-agendar-artigo
+                // E aplicamos um max-width para ele ficar bonitão no PC e no celular
                 divBotao.innerHTML = `
-                    <a href="${linkDeVendas}" target="_blank" class="btn" style="padding: 16px 35px; font-size: 1.1rem; width: 100%; max-width: 380px;">
+                    <a href="${linkDeVendas}" target="_blank" class="btn-agendar-artigo" style="display: inline-block; width: 100%; max-width: 380px;">
                         Compre agora!
                     </a>
                 `;

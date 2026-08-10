@@ -174,3 +174,38 @@
         padding: 60px 0;
     }
 }
+
+/* ========================================== */
+/* GRID DE 3 COLUNAS PARA A VITRINE           */
+/* ========================================== */
+
+#grid-dos-produtos {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 colunas iguais */
+    gap: 30px !important; /* Espaço entre os cards */
+    max-width: 1200px !important; /* Largura máxima da vitrine */
+    margin: 0 auto !important; /* Centraliza a vitrine na tela */
+    align-items: stretch !important; /* Deixa todos os cards da mesma altura */
+}
+
+/* Faz o cartão preencher 100% da coluna onde ele está */
+#grid-dos-produtos .vitrine-card {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* 📱 RESPONSIVIDADE PARA TELAS MENORES */
+
+/* Notebooks menores e Tablets (2 colunas) */
+@media (max-width: 992px) {
+    #grid-dos-produtos {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Celulares (1 coluna) */
+@media (max-width: 768px) {
+    #grid-dos-produtos {
+        grid-template-columns: 1fr !important;
+    }
+}
